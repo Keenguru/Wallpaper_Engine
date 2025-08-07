@@ -1,0 +1,3534 @@
+<!-- 																					Author:
+																				(https://vk.com/keenguru) 
+																				
+																						Contact:
+																			(Keenguru.Wallpaper@gmail.com)	Please email me
+																											if you find any errors,
+																											shortcomings, or just 
+																											have any suggestions.
+
+																						Game: 
+																					Goodbye Eternity
+																	(https://the-end-of-time.itch.io/goodbye-eternity) 
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="img/elements/favicon.svg">
+  <title>Goodbye Eternity, Hello World :)</title>
+
+  <style>
+    @font-face {
+      font-family: 'HUMakingfilm';
+      src: url('fonts/HUMakingfilm_Regular.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      overflow: hidden;
+      font-family: 'HUMakingfilm', sans-serif;
+      background-color: #191919;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .main-block,
+    .scale-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .scale-container {
+      width: 1920px;
+      height: 1080px;
+      transform-origin: 0 0;
+      transform: scale(1);
+      will-change: transform;
+    }
+
+    .time-block {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+    }
+
+    .bg-layer,
+    .fon-layer {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-size: 1920px 1080px;
+      z-index: 1;
+      opacity: 1;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .fon-layer {
+      z-index: 5;
+    }
+
+    .cloud-layer {
+      position: absolute;
+      width: 300%;
+      height: 100%;
+      background-size: contain;
+      background-repeat: repeat-x;
+      animation: cloudMove 500s linear infinite;
+      z-index: 4;
+      opacity: 1;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .cloud-layer.slow {
+      animation-duration: 1000s;
+      z-index: 3;
+    }
+
+    .cloud-layer.slowed {
+      animation-duration: 1500s;
+      z-index: 2;
+    }
+
+    @keyframes cloudMove {
+      0% {
+        transform: translateX(0);
+      }
+
+      100% {
+        transform: translateX(-66.66%);
+      }
+    }
+
+    .switch-top-container {
+      position: fixed;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(220px * var(--scale-factor));
+      height: calc(70px * var(--scale-factor));
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .switch-hover-area {
+      position: fixed;
+      width: calc(220px * var(--scale-factor));
+      height: calc(70px * var(--scale-factor));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .switch {
+      position: relative;
+      display: flex;
+      width: calc(220px * var(--scale-factor));
+      height: calc(40px * var(--scale-factor));
+      border-radius: calc(30px * var(--scale-factor));
+      background-color: #00000090;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      backdrop-filter: blur(2px);
+    }
+
+    .switch-hover-area:hover .switch {
+      opacity: 1;
+    }
+
+    .switch-option {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff00;
+      cursor: pointer;
+      z-index: 2;
+      user-select: none;
+      transition: all 0.3s ease;
+      font-size: calc(14px * var(--scale-factor));
+      font-weight: 500;
+    }
+
+    .switch-option.active,
+    .switch-option:hover {
+      color: white;
+    }
+
+    .switch-option.active {
+      font-weight: 600;
+    }
+
+    .switch-slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 33.33%;
+      height: 100%;
+      background-color: #c7c7c71f;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      z-index: 1;
+    }
+
+    .switch-option:nth-child(1).active~.switch-slider {
+      left: 0;
+      transform: translateX(0);
+    }
+
+    .switch-option:nth-child(2).active~.switch-slider {
+      left: 33.33%;
+      transform: translateX(0);
+    }
+
+    .switch-option:nth-child(3).active~.switch-slider {
+      left: 66.66%;
+      transform: translateX(0);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .time-hidden,
+    .time-visible {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .time-visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .light-transition {
+      transition: opacity 0s ease-in-out !important;
+    }
+
+    .time-transition {
+      transition: opacity 2s ease-in-out;
+    }
+
+    .fade-in {
+      animation: fadeIn 1s;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .logo-screen,
+    .black-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 999999;
+      opacity: 1;
+      pointer-events: none;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    .logo-screen {
+      background-color: #181818;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .black-screen {
+      background-color: #151515;
+      z-index: 9999;
+      opacity: 0;
+    }
+
+    body.logo-screen-visible .switch-top-container,
+    body.logo-screen-visible .back-button {
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+
+    body.logo-screen-visible [class^="point-"] {
+      pointer-events: none !important;
+    }
+
+    [class^="hover-layer-"] {
+      position: absolute;
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 0.3s, filter 0.3s;
+      z-index: 6;
+      pointer-events: auto;
+    }
+
+    [class^="hover-layer-"]:hover {
+      opacity: 1;
+      filter: brightness(110%);
+      cursor: pointer;
+    }
+
+    .hover-layer-park {
+      width: 1010px;
+      height: 419px;
+      left: 357px;
+      top: 327px;
+    }
+
+    .hover-layer-arcade_exterior {
+      width: 157px;
+      height: 364px;
+      left: 1084px;
+      top: 352px;
+    }
+
+    .hover-layer-coffeebar_exterior {
+      width: 260px;
+      height: 504px;
+      left: 707px;
+      top: 299px;
+    }
+
+    .hover-layer-club {
+      width: 236px;
+      height: 301px;
+      left: 625px;
+      top: 450px;
+    }
+
+    .hover-layer-club_alley {
+      width: 241px;
+      height: 712px;
+      left: 0px;
+      top: 132px;
+    }
+
+    .hover-layer-hotel {
+      width: 176px;
+      height: 382px;
+      left: 1362px;
+      top: 402px;
+    }
+
+    .hover-layer-reception {
+      width: 247px;
+      height: 402px;
+      left: 1673px;
+      top: 409px;
+    }
+
+    .hover-layer-restaurant_exterior {
+      width: 388px;
+      height: 557px;
+      left: 1052px;
+      top: 260px;
+    }
+
+    .hover-layer-restaurant_interior {
+      width: 154px;
+      height: 368px;
+      left: 1015px;
+      top: 380px;
+    }
+
+    .hover-layer-restaurant_sakuya_room {
+      width: 177px;
+      height: 1080px;
+      left: 0px;
+      top: 0px;
+    }
+
+    .hover-layer-home_exterior {
+      width: 298px;
+      height: 392px;
+      left: 810px;
+      top: 384px;
+    }
+
+    .hover-layer-home_livingroom-hover1 {
+      width: 117px;
+      height: 1043px;
+      left: 0px;
+      top: 37px;
+    }
+
+    .hover-layer-home_livingroom-hover2 {
+      width: 39px;
+      height: 345px;
+      left: 349px;
+      top: 302px;
+    }
+
+    .hover-layer-home_livingroom-hover3 {
+      width: 249px;
+      height: 968px;
+      left: 1671px;
+      top: 0px;
+    }
+
+    .hover-layer-home_livingroom-switch1 {
+      width: 7px;
+      height: 32px;
+      left: 338px;
+      top: 485px;
+    }
+
+    .hover-layer-home_livingroom-switch2 {
+      width: 18px;
+      height: 46px;
+      left: 1637px;
+      top: 477px;
+    }
+
+    .hover-layer-home_hallway-hover1 {
+      width: 371px;
+      height: 753px;
+      left: 835px;
+      top: 112px;
+    }
+
+    .hover-layer-home_hallway-hover2 {
+      width: 252px;
+      height: 1080px;
+      left: 0px;
+      top: 0px;
+    }
+
+    .hover-layer-home_hallway-switch1 {
+      width: 154px;
+      height: 226px;
+      left: 1348px;
+      top: 418px;
+    }
+
+    .hover-layer-home_corridor-switch1 {
+      width: 16px;
+      height: 43px;
+      left: 672px;
+      top: 519px;
+    }
+
+    .hover-layer-home_corridor-hover1 {
+      width: 333px;
+      height: 970px;
+      left: 14px;
+      top: 110px;
+    }
+
+    .hover-layer-home_corridor-hover2 {
+      width: 203px;
+      height: 746px;
+      left: 461px;
+      top: 188px;
+    }
+
+    .hover-layer-home_corridor-hover2-light1 {
+      width: 203px;
+      height: 746px;
+      left: 461px;
+      top: 188px;
+      opacity: 1;
+    }
+
+    .hover-layer-home_corridor-hover3 {
+      width: 275px;
+      height: 623px;
+      left: 876px;
+      top: 242px;
+    }
+
+    .hover-layer-home_corridor-hover4 {
+      width: 354px;
+      height: 716px;
+      left: 1460px;
+      top: 201px;
+    }
+
+    .hover-layer-home_bathroom-hover1 {
+      width: 140px;
+      height: 1080px;
+      left: 1602px;
+      top: 0px;
+    }
+
+    .hover-layer-home_saito-switch1 {
+      width: 77px;
+      height: 62px;
+      left: 1646px;
+      top: 434px;
+    }
+
+    .hover-layer-home_yasuka-switch1 {
+      width: 103px;
+      height: 162px;
+      left: 1664px;
+      top: 553px;
+    }
+
+    .hover-layer-sakuya_room-switch1 {
+      width: 21px;
+      height: 67px;
+      left: 205px;
+      top: 565px;
+    }
+
+    .hover-layer-warehouse_exterior {
+      width: 292px;
+      height: 329px;
+      left: 446px;
+      top: 362px;
+    }
+
+    .hover-layer-warehouse_interior {
+      width: 124px;
+      height: 512px;
+      left: 1779px;
+      top: 175px;
+    }
+
+    .hover-layer-konbini_exterior {
+      width: 218px;
+      height: 356px;
+      left: 794px;
+      top: 411px;
+    }
+
+    .hover-layer-kimochi_exterior {
+      width: 89px;
+      height: 216px;
+      left: 635px;
+      top: 502px;
+    }
+
+    .hover-layer-kimochi_interior {
+      width: 183px;
+      height: 865px;
+      left: 1737px;
+      top: 75px;
+    }
+
+    .hover-layer-asami_exterior {
+      width: 125px;
+      height: 312px;
+      left: 896px;
+      top: 443px;
+    }
+
+    .hover-layer-asami_room-switch1 {
+      width: 90px;
+      height: 124px;
+      left: 720px;
+      top: 511px;
+    }
+
+    .hover-layer-asami_sayuri_switch1 {
+      width: 47px;
+      height: 151px;
+      left: 670px;
+      top: 528px;
+    }
+
+    .hover-layer-asami_sayuri_switch1-1 {
+      width: 53px;
+      height: 168px;
+      left: 1402px;
+      top: 527px;
+    }
+
+    .hover-layer-asami_livingroom-hover1 {
+      width: 160px;
+      height: 816px;
+      left: 0px;
+      top: 110px;
+    }
+
+    .hover-layer-asami_livingroom-hover2 {
+      width: 87px;
+      height: 321px;
+      left: 542px;
+      top: 298px;
+    }
+
+    .hover-layer-asami_livingroom-hover3 {
+      width: 130px;
+      height: 378px;
+      left: 750px;
+      top: 346px;
+    }
+
+    .hover-layer-asami_livingroom-hover4 {
+      width: 165px;
+      height: 402px;
+      left: 902px;
+      top: 331px;
+    }
+
+    .hover-layer-asami_room-hover {
+      width: 188px;
+      height: 1057px;
+      left: 1732px;
+      top: 23px;
+    }
+
+    .hover-layer-asami_livingroom-switch1 {
+      width: 181px;
+      height: 127px;
+      left: 938px;
+      top: 0px;
+    }
+
+    .hover-layer-onsen_exterior {
+      width: 301px;
+      height: 427px;
+      left: 821px;
+      top: 366px;
+    }
+
+    .hover-layer-onsen_interior-hover1 {
+      width: 263px;
+      height: 760px;
+      left: 167px;
+      top: 179px;
+    }
+
+    .hover-layer-onsen_interior-hover2 {
+      width: 252px;
+      height: 424px;
+      left: 1511px;
+      top: 349px;
+    }
+
+    .hover-layer-onsen_interior-switch1 {
+      width: 68px;
+      height: 91px;
+      left: 1239px;
+      top: 495px;
+    }
+
+    .hover-layer-onsen_bath-hover1 {
+      width: 72px;
+      height: 188px;
+      left: 554px;
+      top: 454px;
+    }
+
+    .hover-layer-onsen_bath-hover2 {
+      width: 316px;
+      height: 284px;
+      left: 0px;
+      top: 399px;
+    }
+
+    .hover-layer-onsen_room {
+      width: 786px;
+      height: 559px;
+      left: 626px;
+      top: 267px;
+    }
+
+    .hover-layer-onsen_room-night {
+      width: 517px;
+      height: 554px;
+      left: 828px;
+      top: 270px;
+    }
+
+    .hover-layer-onsen_room-switch1 {
+      width: 222px;
+      height: 151px;
+      left: 881px;
+      top: 0px;
+    }
+
+    .hover-layer-minato_exterior {
+      width: 227px;
+      height: 256px;
+      left: 925px;
+      top: 524px;
+    }
+
+    .hover-layer-minato_hallway {
+      width: 106px;
+      height: 802px;
+      left: 358px;
+      top: 126px;
+    }
+
+    .hover-layer-asami_light1 {
+      width: 207px;
+      height: 172px;
+      left: 1397px;
+      top: 410px;
+    }
+
+    .hover-layer-nobu_light1 {
+      width: 121px;
+      height: 100px;
+      left: 1171px;
+      top: 497px;
+    }
+
+    .hover-layer-nobu_light2 {
+      width: 88px;
+      height: 78px;
+      left: 914px;
+      top: 512px;
+    }
+
+    .hover-layer-nobu_light3 {
+      width: 177px;
+      height: 98px;
+      left: 1543px;
+      top: 196px;
+    }
+
+    .hover-layer-nobu_light4 {
+      width: 65px;
+      height: 83px;
+      left: 732px;
+      top: 52px;
+    }
+
+    .hover-layer-nobu_light5 {
+      width: 48px;
+      height: 77px;
+      left: 421px;
+      top: 383px;
+    }
+
+    .hover-layer-nobu_light6 {
+      width: 39px;
+      height: 64px;
+      left: 324px;
+      top: 407px;
+    }
+
+    .hover-layer-restaurant_light1 {
+      width: 199px;
+      height: 136px;
+      left: 1548px;
+      top: 118px;
+    }
+
+    .hover-layer-dojo_light1 {
+      width: 373px;
+      height: 378px;
+      left: 773px;
+      top: 309px;
+    }
+
+    .hover-layer-kimochi_light1 {
+      width: 86px;
+      height: 109px;
+      left: 338px;
+      top: 501px;
+    }
+
+    .hover-layer-kimochi_light2 {
+      width: 126px;
+      height: 133px;
+      left: 761px;
+      top: 487px;
+    }
+
+    .hover-layer-kimochi_light3 {
+      width: 205px;
+      height: 171px;
+      left: 1412px;
+      top: 465px;
+    }
+
+    .hover-layer-kimochi_light4 {
+      width: 86px;
+      height: 95px;
+      left: 339px;
+      top: 213px;
+    }
+
+    .hover-layer-kimochi_light5 {
+      width: 127px;
+      height: 119px;
+      left: 761px;
+      top: 134px;
+    }
+
+    .hover-layer-kimochi_light6 {
+      width: 205px;
+      height: 158px;
+      left: 1410px;
+      top: 11px;
+    }
+
+    .hover-layer-kimochi_light7 {
+      width: 33px;
+      height: 101px;
+      left: 259px;
+      top: 505px;
+    }
+
+    .hover-layer-kimochi_light8 {
+      width: 44px;
+      height: 147px;
+      left: 1241px;
+      top: 477px;
+    }
+
+    .hover-layer-kimochi_light9 {
+      width: 34px;
+      height: 89px;
+      left: 260px;
+      top: 237px;
+    }
+
+    .hover-layer-kimochi_light10 {
+      width: 37px;
+      height: 120px;
+      left: 651px;
+      top: 171px;
+    }
+
+    .hover-layer-kimochi_light11 {
+      width: 43px;
+      height: 146px;
+      left: 1241px;
+      top: 73px;
+    }
+
+    .hover-layer-minato_exterior_light1 {
+      width: 129px;
+      height: 30px;
+      left: 1184px;
+      top: 479px;
+    }
+
+    .hover-layer-minato_exterior_light2 {
+      width: 150px;
+      height: 98px;
+      left: 753px;
+      top: 19px;
+    }
+
+    .hover-layer-minato_exterior_light3 {
+      width: 176px;
+      height: 37px;
+      left: 358px;
+      top: 644px;
+    }
+
+    .hover-layer-minato_exterior_light4 {
+      width: 149px;
+      height: 126px;
+      left: 753px;
+      top: 177px;
+    }
+
+    .hover-layer-minato_exterior_light5 {
+      width: 148px;
+      height: 97px;
+      left: 347px;
+      top: 207px;
+    }
+
+    .hover-layer-minato_exterior_light6 {
+      width: 153px;
+      height: 115px;
+      left: 1164px;
+      top: 229px;
+    }
+
+    .hover-layer-minato_exterior_light7 {
+      width: 176px;
+      height: 114px;
+      left: 358px;
+      top: 431px;
+    }
+
+    .hover-layer-minato_exterior_light8 {
+      width: 39px;
+      height: 116px;
+      left: 1038px;
+      top: 193px;
+    }
+
+    .hover-layer-takeo_exterior_light2 {
+      width: 174px;
+      height: 139px;
+      left: 1299px;
+      top: 445px;
+    }
+
+    .hover-layer-takeo_exterior_light3 {
+      width: 367px;
+      height: 264px;
+      left: 408px;
+      top: 114px;
+    }
+
+    .hover-layer-takeo_exterior_light4 {
+      width: 45px;
+      height: 164px;
+      left: 214px;
+      top: 140px;
+    }
+
+    .hover-layer-asami_light1,
+    .hover-layer-nobu_light1,
+    .hover-layer-nobu_light2,
+    .hover-layer-nobu_light3,
+    .hover-layer-nobu_light4,
+    .hover-layer-nobu_light5,
+    .hover-layer-nobu_light6,
+    .hover-layer-restaurant_light1,
+    .hover-layer-dojo_light1,
+    .hover-layer-konbini_light1,
+    .hover-layer-kimochi_light1,
+    .hover-layer-kimochi_light2,
+    .hover-layer-kimochi_light3,
+    .hover-layer-kimochi_light4,
+    .hover-layer-kimochi_light5,
+    .hover-layer-kimochi_light6,
+    .hover-layer-kimochi_light7,
+    .hover-layer-kimochi_light8,
+    .hover-layer-kimochi_light9,
+    .hover-layer-kimochi_light10,
+    .hover-layer-kimochi_light11,
+    .hover-layer-onsen_light,
+    .hover-layer-minato_exterior_light1,
+    .hover-layer-minato_exterior_light2,
+    .hover-layer-minato_exterior_light3,
+    .hover-layer-minato_exterior_light4,
+    .hover-layer-minato_exterior_light5,
+    .hover-layer-minato_exterior_light6,
+    .hover-layer-minato_exterior_light7,
+    .hover-layer-minato_exterior_light8,
+    .hover-layer-takeo_exterior_light2,
+    .hover-layer-takeo_exterior_light3,
+    .hover-layer-takeo_exterior_light4 {
+      transition: opacity 2s ease-out;
+    }
+
+    .hover-layer-asami_light1:hover,
+    .hover-layer-nobu_light1:hover,
+    .hover-layer-nobu_light2:hover,
+    .hover-layer-nobu_light3:hover,
+    .hover-layer-nobu_light4:hover,
+    .hover-layer-nobu_light5:hover,
+    .hover-layer-nobu_light6:hover,
+    .hover-layer-restaurant_light1:hover,
+    .hover-layer-dojo_light1:hover,
+    .hover-layer-konbini_light1:hover,
+    .hover-layer-konbini_light1:hover,
+    .hover-layer-kimochi_light1:hover,
+    .hover-layer-kimochi_light2:hover,
+    .hover-layer-kimochi_light3:hover,
+    .hover-layer-kimochi_light4:hover,
+    .hover-layer-kimochi_light5:hover,
+    .hover-layer-kimochi_light6:hover,
+    .hover-layer-kimochi_light7:hover,
+    .hover-layer-kimochi_light8:hover,
+    .hover-layer-kimochi_light9:hover,
+    .hover-layer-kimochi_light10:hover,
+    .hover-layer-kimochi_light11:hover,
+    .hover-layer-onsen_light:hover,
+    .hover-layer-minato_exterior_light1:hover,
+    .hover-layer-minato_exterior_light2:hover,
+    .hover-layer-minato_exterior_light3:hover,
+    .hover-layer-minato_exterior_light4:hover,
+    .hover-layer-minato_exterior_light5:hover,
+    .hover-layer-minato_exterior_light6:hover,
+    .hover-layer-minato_exterior_light7:hover,
+    .hover-layer-minato_exterior_light8:hover,
+    .hover-layer-takeo_exterior_light2:hover,
+    .hover-layer-takeo_exterior_light3:hover,
+    .hover-layer-takeo_exterior_light4:hover {
+      opacity: 1;
+      filter: brightness(100%);
+      transition: opacity 0.1s ease-in;
+    }
+
+    [class^="point-"] {
+      width: 34px;
+      height: 34px;
+      background-image: url('img/elements/point.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      z-index: 999;
+      position: fixed;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      will-change: transform;
+    }
+
+    .point-home {
+      width: 32px;
+      height: 32px;
+      background-image: url('img/elements/home.svg');
+    }
+
+    .point-bus {
+      top: 529px;
+      left: 1060px;
+    }
+
+    .point-canal {
+      top: 289px;
+      left: 241px;
+    }
+
+    .point-lake {
+      top: 524px;
+      left: 1177px;
+    }
+
+    .point-arcade {
+      top: 371px;
+      left: 722px;
+    }
+
+    .point-coffeebar {
+      top: 460px;
+      left: 829px;
+    }
+
+    .point-kimochi {
+      top: 705px;
+      left: 1284px;
+    }
+
+    .point-konbini {
+      top: 783px;
+      left: 1032px;
+    }
+
+    .point-warehouse {
+      top: 820px;
+      left: 1620px;
+    }
+
+    .point-club {
+      top: 422px;
+      left: 660px;
+    }
+
+    .point-hotel {
+      top: 405px;
+      left: 596px;
+    }
+
+    .point-minato {
+      top: 892px;
+      left: 1036px;
+    }
+
+    .point-park_main {
+      top: 457px;
+      left: 1178px;
+    }
+
+    .point-park {
+      top: 167px;
+      left: 801px;
+    }
+
+    .point-restaurant {
+      top: 535px;
+      left: 514px;
+    }
+
+    .point-onsen {
+      top: 337px;
+      left: 1785px;
+    }
+
+    .point-asami {
+      top: 881px;
+      left: 921px;
+    }
+
+    .point-home {
+      top: 673px;
+      left: 974px;
+    }
+
+    .point-dojo {
+      top: 411px;
+      left: 1023px;
+    }
+
+    .point-kenji {
+      top: 964px;
+      left: 1788px;
+    }
+
+    .point-natsume {
+      top: 926px;
+      left: 1637px;
+    }
+
+    .point-nobu {
+      top: 836px;
+      left: 505px;
+    }
+
+    .point-takeo {
+      top: 1013px;
+      left: 912px;
+    }
+
+    .location-tooltip {
+      position: fixed;
+      top: calc(20px * var(--scale-factor));
+      left: 50%;
+      transform: translateX(-50%) scale(calc(1 / var(--scale-factor)));
+      transform-origin: top center;
+      color: #FFD700;
+      font-size: calc(24px * var(--scale-factor)));
+      font-weight: bold;
+      text-shadow: 1px 1px 2px #000;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+      z-index: 1000;
+      font-family: 'HUMakingfilm', sans-serif;
+      white-space: nowrap;
+    }
+
+    .language-button,
+    .back-button {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      bottom: 45px;
+      right: 5px;
+      backdrop-filter: blur(2px);
+      background-color: rgba(0, 0, 0, 0.1);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: opacity 0.5s ease, background-color 0.3s ease;
+      transform: scale(var(--scale-factor));
+      transform-origin: bottom right;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .language-button {
+      overflow: hidden;
+    }
+
+    .language-text-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .language-text {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: bold;
+      font-size: 14px;
+      transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+
+    #languageTextRu {
+      transform: translateY(0);
+    }
+
+    #languageTextEn {
+      transform: translateY(100%);
+    }
+
+    .language-button.ru #languageTextRu {
+      transform: translateY(0);
+    }
+
+    .language-button.ru #languageTextEn {
+      transform: translateY(100%);
+    }
+
+    .language-button.en #languageTextRu {
+      transform: translateY(-100%);
+    }
+
+    .language-button.en #languageTextEn {
+      transform: translateY(0);
+    }
+
+    .back-button {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .language-button.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .back-button.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .language-button:hover,
+    .back-button:hover,
+    .lock-button:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    .back-button svg {
+      width: 20px;
+      height: 20px;
+      color: white;
+    }
+
+    .lock-button {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      top: 5px;
+      right: 5px;
+      backdrop-filter: blur(2px);
+      background-color: rgba(0, 0, 0, 0.1);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      transform: scale(var(--scale-factor));
+      transform-origin: top right;
+      z-index: 10000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lock-icon {
+      width: 20px;
+      height: 20px;
+      color: white;
+      margin-bottom: 2px;
+    }
+
+    .lock-top {
+      transform-origin: 12px 7px;
+      transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    }
+
+    .lock-button.locked .lock-top {
+      transform: scaleY(1) translateY(2px);
+    }
+
+    .lock-hole {
+      transition: opacity 0.3s ease;
+    }
+
+    .lock-button.locked .lock-hole {
+      opacity: 0.7;
+    }
+
+    .lock-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 9999;
+      background-color: transparent;
+      pointer-events: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .lock-overlay.active {
+      pointer-events: auto;
+    }
+
+    .help-button {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      top: 55px;
+      right: 5px;
+      backdrop-filter: blur(2px);
+      background-color: rgba(0, 0, 0, 0.1);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: opacity 0.5s ease, background-color 0.3s ease;
+      transform: scale(var(--scale-factor));
+      transform-origin: top right;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      color: white;
+    }
+
+    .help-button svg {
+      width: 34px;
+      height: 34px;
+      color: white;
+    }
+
+    .help-button.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .help-button:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    @keyframes highlightPulseNormal {
+
+      0%,
+      100% {
+        filter: brightness(100%);
+      }
+
+      50% {
+        filter: brightness(120%);
+      }
+    }
+
+    .highlight-clickable-normal {
+      animation: highlightPulseNormal 0.5s ease-in-out 3;
+    }
+
+    .password-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 10001;
+
+    }
+
+    .password-modal-content {
+      background-color: #222;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+    }
+
+    .password-display {
+      font-size: 24px;
+      letter-spacing: 5px;
+      margin-bottom: 20px;
+      color: #fff;
+      font-family: 'HUMakingfilm', sans-serif;
+    }
+
+    .password-keyboard {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .password-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .password-key {
+      width: 60px;
+      height: 60px;
+      border: none;
+      border-radius: 5px;
+      background-color: #444;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      font-family: 'HUMakingfilm', sans-serif;
+      transition: background-color 0.2s;
+    }
+
+    .password-key:hover {
+      background-color: #555;
+    }
+
+    #passwordBackspace,
+    #passwordSubmit {
+      background-color: #333;
+    }
+
+    #passwordSubmit {
+      background-color: #4CAF50;
+    }
+
+    #passwordSubmit:hover {
+      background-color: #45a049;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="logo-screen" style="background-image: url('img/elements/logo.webp');" id="logoScreen"></div>
+  <div class="black-screen" id="transitionScreen"></div>
+  <div class="scale-container" id="scaleContainer">
+    <div class="location-tooltip" id="locationTooltip"></div>
+    <div class="main-block" id="main">
+      <div class="points-container">
+        <div class="point-bus" onclick="switchMainBlock('main1', currentTime)"></div>
+        <div class="point-canal" onclick="switchMainBlock('main2', currentTime)"></div>
+        <div class="point-lake" onclick="switchMainBlock('main3', currentTime)"></div>
+        <div class="point-arcade" onclick="switchMainBlock('main4', currentTime)"></div>
+        <div class="point-coffeebar" onclick="switchMainBlock('main6', currentTime)"></div>
+        <div class="point-kimochi" onclick="switchMainBlock('main8', currentTime)"></div>
+        <div class="point-konbini" onclick="switchMainBlock('main10', currentTime)"></div>
+        <div class="point-warehouse" onclick="switchMainBlock('main12', currentTime)"></div>
+        <div class="point-club" onclick="switchMainBlock('main14', currentTime)"></div>
+        <div class="point-hotel" onclick="switchMainBlock('main17', currentTime)"></div>
+        <div class="point-minato" onclick="switchMainBlock('main20', currentTime)"></div>
+        <div class="point-park_main" onclick="switchMainBlock('main23', currentTime)"></div>
+        <div class="point-park" onclick="switchMainBlock('main24', currentTime)"></div>
+        <div class="point-restaurant" onclick="switchMainBlock('main26', currentTime)"></div>
+        <div class="point-onsen" onclick="switchMainBlock('main29', currentTime)"></div>
+        <div class="point-asami" onclick="switchMainBlock('main33', currentTime)"></div>
+        <div class="point-home" onclick="switchMainBlock('main38', currentTime)"></div>
+        <div class="point-dojo" onclick="switchMainBlock('main46', currentTime)"></div>
+        <div class="point-kenji" onclick="switchMainBlock('main48', currentTime)"></div>
+        <div class="point-natsume" onclick="switchMainBlock('main50', currentTime)"></div>
+        <div class="point-nobu" onclick="switchMainBlock('main52', currentTime)"></div>
+        <div class="point-takeo" onclick="switchMainBlock('main54', currentTime)"></div>
+      </div>
+      <div class="time-block time-visible" id="main-day">
+        <div class="bg-layer" style="background-image: url('img/city/day/bg.webp');"></div>
+      </div>
+      <div class="time-block time-hidden" id="main-evening">
+        <div class="bg-layer" style="background-image: url('img/city/evening/bg.webp');"></div>
+      </div>
+      <div class="time-block time-hidden" id="main-night">
+        <div class="bg-layer" style="background-image: url('img/city/night/bg.webp');"></div>
+      </div>
+    </div>
+    <!--1 bus_stop -->
+    <div class="main-block hidden" id="main1">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main1-day">
+        <div class="bg-layer" style="background-image: url('img/bus/bus_stop/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/bus/bus_stop/day/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/bus/bus_stop/day/clouds2.webp');"></div>
+        <div class="cloud-layer slowed" style="background-image: url('img/bus/bus_stop/day/clouds3.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/bus/bus_stop/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main1-evening">
+        <div class="bg-layer" style="background-image: url('img/bus/bus_stop/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/bus/bus_stop/evening/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/bus/bus_stop/evening/clouds2.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/bus/bus_stop/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main1-night">
+        <div class="bg-layer" style="background-image: url('img/bus/bus_stop/night/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/bus/bus_stop/night/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/bus/bus_stop/night/clouds2.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/bus/bus_stop/night/night.webp');"></div>
+      </div>
+    </div>
+    <!--2 canal -->
+    <div class="main-block hidden" id="main2">
+      <!-- Day -->
+      <div class="time-block time-hidden" id="main2-day">
+        <div class="bg-layer" style="background-image: url('img/canal/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/canal/day/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/canal/day/clouds2.webp');"></div>
+        <div class="cloud-layer slowed" style="background-image: url('img/canal/day/clouds3.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/canal/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main2-evening">
+        <div class="bg-layer" style="background-image: url('img/canal/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/canal/evening/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/canal/evening/clouds2.webp');"></div>
+        <div class="cloud-layer slowed" style="background-image: url('img/canal/evening/clouds3.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/canal/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main2-night">
+        <div class="bg-layer" style="background-image: url('img/canal/night/bg.webp');"></div>
+        <div class="cloud-layer slowed" style="background-image: url('img/canal/night/clouds3.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/canal/night/night.webp');"></div>
+      </div>
+    </div>
+    <!--3 lake -->
+    <div class="main-block hidden" id="main3">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main3-day">
+        <div class="bg-layer" style="background-image: url('img/lake/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/lake/day/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/lake/day/clouds2.webp');"></div>
+        <div class="cloud-layer slowed" style="background-image: url('img/lake/day/clouds3.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/lake/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main3-evening">
+        <div class="bg-layer" style="background-image: url('img/lake/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/lake/evening/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/lake/evening/clouds2.webp');"></div>
+        <div class="cloud-layer slowed" style="background-image: url('img/lake/evening/clouds3.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/lake/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main3-night">
+        <div class="bg-layer" style="background-image: url('img/lake/night/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/lake/night/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/lake/night/clouds2.webp');"></div>
+        <div class="cloud-layer slowed" style="background-image: url('img/lake/night/clouds3.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/lake/night/night.webp');"></div>
+      </div>
+    </div>
+    <!--4 arcade_exterior -->
+    <div class="main-block hidden" id="main4">
+      <!-- Day -->
+      <div class="time-block time-hidden" id="main4-day">
+        <div class="bg-layer" style="background-image: url('img/arcade/arcade_exterior/day/bg.webp');"></div>
+        <div class="hover-layer-arcade_exterior" style="background-image: url('img/arcade/arcade_exterior/day/hover.webp');" onclick="switchMainBlock('main5', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main4-evening">
+        <div class="bg-layer" style="background-image: url('img/arcade/arcade_exterior/evening/bg.webp');"></div>
+        <div class="hover-layer-arcade_exterior" style="background-image: url('img/arcade/arcade_exterior/evening/hover.webp');" onclick="switchMainBlock('main5', currentTime)"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main4-night">
+        <div class="bg-layer" style="background-image: url('img/arcade/arcade_exterior/night/bg.webp');"></div>
+        <div class="hover-layer-arcade_exterior" style="background-image: url('img/arcade/arcade_exterior/night/hover.webp');" onclick="switchMainBlock('main5', currentTime)"></div>
+      </div>
+    </div>
+    <!--5 arcade_interior -->
+    <div class="main-block hidden" id="main5">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main5-day">
+        <div class="bg-layer" style="background-image: url('img/arcade/arcade_interior/bg.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main5-evening">
+        <div class="bg-layer" style="background-image: url('img/arcade/arcade_interior/bg.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main5-night">
+        <div class="bg-layer" style="background-image: url('img/arcade/arcade_interior/bg.webp');"></div>
+      </div>
+    </div>
+    <!--6 coffeebar_exterior -->
+    <div class="main-block hidden" id="main6">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main6-day">
+        <div class="bg-layer" style="background-image: url('img/coffeebar/coffeebar_exterior/day/bg.webp');"></div>
+        <div class="hover-layer-coffeebar_exterior" style="background-image: url('img/coffeebar/coffeebar_exterior/day/hover.webp');" onclick="switchMainBlock('main7', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main6-evening">
+        <div class="bg-layer" style="background-image: url('img/coffeebar/coffeebar_exterior/evening/bg.webp');"></div>
+        <div class="hover-layer-coffeebar_exterior" style="background-image: url('img/coffeebar/coffeebar_exterior/evening/hover.webp');" onclick="switchMainBlock('main7', currentTime)"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main6-night">
+        <div class="bg-layer" style="background-image: url('img/coffeebar/coffeebar_exterior/night/bg.webp');"></div>
+        <div class="hover-layer-coffeebar_exterior" style="background-image: url('img/coffeebar/coffeebar_exterior/night/hover.webp');" onclick="switchMainBlock('main7', currentTime)"></div>
+      </div>
+    </div>
+    <!--7 coffeebar_interior -->
+    <div class="main-block hidden" id="main7">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main7-day">
+        <div class="bg-layer" style="background-image: url('img/coffeebar/coffeebar_interior/day/bg.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main7-evening">
+        <div class="bg-layer" style="background-image: url('img/coffeebar/coffeebar_interior/evening/bg.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main7-night">
+        <div class="bg-layer" style="background-image: url('img/coffeebar/coffeebar_interior/night/bg.webp');"></div>
+      </div>
+    </div>
+    <!--8 kimochi_exterior -->
+    <div class="main-block hidden" id="main8">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main8-day">
+        <div class="bg-layer" style="background-image: url('img/kimochi/kimochi_exterior/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/kimochi/kimochi_exterior/day/clouds1.webp');"></div>
+        <div class="hover-layer-kimochi_exterior" style="background-image: url('img/kimochi/kimochi_exterior/day/hover.webp');" onclick="switchMainBlock('main9', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/kimochi/kimochi_exterior/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main8-evening">
+        <div class="bg-layer" style="background-image: url('img/kimochi/kimochi_exterior/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/kimochi/kimochi_exterior/evening/clouds1.webp');"></div>
+        <div class="hover-layer-kimochi_exterior" style="background-image: url('img/kimochi/kimochi_exterior/evening/hover.webp');" onclick="switchMainBlock('main9', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/kimochi/kimochi_exterior/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main8-night">
+        <div class="bg-layer" style="background-image: url('img/kimochi/kimochi_exterior/night/bg.webp');"></div>
+        <div class="hover-layer-kimochi_exterior" style="background-image: url('img/kimochi/kimochi_exterior/night/hover.webp');" onclick="switchMainBlock('main9', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/kimochi/kimochi_exterior/night/night.webp');"></div>
+        <div class="hover-layer-kimochi_light1" style="background-image: url('img/kimochi/kimochi_exterior/night/window/hover-light1.webp');"></div>
+        <div class="hover-layer-kimochi_light2" style="background-image: url('img/kimochi/kimochi_exterior/night/window/hover-light2.webp');"></div>
+        <div class="hover-layer-kimochi_light3" style="background-image: url('img/kimochi/kimochi_exterior/night/window/hover-light3.webp');"></div>
+        <div class="hover-layer-kimochi_light4" style="background-image: url('img/kimochi/kimochi_exterior/night/window/hover-light4.webp');"></div>
+        <div class="hover-layer-kimochi_light5" style="background-image: url('img/kimochi/kimochi_exterior/night/window/hover-light5.webp');"></div>
+        <div class="hover-layer-kimochi_light6" style="background-image: url('img/kimochi/kimochi_exterior/night/window/hover-light6.webp');"></div>
+        <div class="hover-layer-kimochi_light7" style="background-image: url('img/kimochi/kimochi_exterior/night/door/hover-light1.webp');"></div>
+        <div class="hover-layer-kimochi_light8" style="background-image: url('img/kimochi/kimochi_exterior/night/door/hover-light3.webp');"></div>
+        <div class="hover-layer-kimochi_light9" style="background-image: url('img/kimochi/kimochi_exterior/night/door/hover-light4.webp');"></div>
+        <div class="hover-layer-kimochi_light10" style="background-image: url('img/kimochi/kimochi_exterior/night/door/hover-light5.webp');"></div>
+        <div class="hover-layer-kimochi_light11" style="background-image: url('img/kimochi/kimochi_exterior/night/door/hover-light6.webp');"></div>
+      </div>
+    </div>
+    <!--9 kimochi_interior -->
+    <div class="main-block hidden" id="main9">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main9-day">
+        <div class="bg-layer" style="background-image: url('img/kimochi/kimochi_interior/bg.webp');"></div>
+        <div class="hover-layer-kimochi_interior" style="background-image: url('img/kimochi/kimochi_interior/hover.webp');" onclick="switchMainBlock('main8', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main9-evening">
+        <div class="bg-layer" style="background-image: url('img/kimochi/kimochi_interior/bg.webp');"></div>
+        <div class="hover-layer-kimochi_interior" style="background-image: url('img/kimochi/kimochi_interior/hover.webp');" onclick="switchMainBlock('main8', currentTime)"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main9-night">
+        <div class="bg-layer" style="background-image: url('img/kimochi/kimochi_interior/bg-dust.webp');"></div>
+        <div class="hover-layer-kimochi_interior" style="background-image: url('img/kimochi/kimochi_interior/hover.webp');" onclick="switchMainBlock('main8', currentTime)"></div>
+      </div>
+    </div>
+    <!--10 konbini_exterior -->
+    <div class="main-block hidden" id="main10">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main10-day">
+        <div class="bg-layer" style="background-image: url('img/konbini/konbini_exterior/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/konbini/konbini_exterior/day/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/konbini/konbini_exterior/day/clouds2.webp');"></div>
+        <div class="hover-layer-konbini_exterior" style="background-image: url('img/konbini/konbini_exterior/day/hover.webp');" onclick="switchMainBlock('main11', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/konbini/konbini_exterior/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main10-evening">
+        <div class="bg-layer" style="background-image: url('img/konbini/konbini_exterior/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/konbini/konbini_exterior/evening/clouds1.webp');"></div>
+        <div class="hover-layer-konbini_exterior" style="background-image: url('img/konbini/konbini_exterior/evening/hover.webp');" onclick="switchMainBlock('main11', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/konbini/konbini_exterior/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main10-night">
+        <div class="bg-layer" style="background-image: url('img/konbini/konbini_exterior/night/bg.webp');"></div>
+        <div class="hover-layer-konbini_exterior" style="background-image: url('img/konbini/konbini_exterior/night/hover.webp');" onclick="switchMainBlock('main11', currentTime)"></div>
+        <div class="hover-layer-konbini_light1" style="background-image: url('img/konbini/konbini_exterior/night/hover-light1.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/konbini/konbini_exterior/night/night.webp');"></div>
+      </div>
+    </div>
+    <!--11 konbini_interior -->
+    <div class="main-block hidden" id="main11">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main11-day">
+        <div class="bg-layer" style="background-image: url('img/konbini/konbini_interior/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/konbini/konbini_interior/day/clouds1.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/konbini/konbini_interior/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main11-evening">
+        <div class="bg-layer" style="background-image: url('img/konbini/konbini_interior/evening/bg.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main11-night">
+        <div class="bg-layer" style="background-image: url('img/konbini/konbini_interior/night/bg.webp');"></div>
+      </div>
+    </div>
+    <!--12 warehouse_exterior -->
+    <div class="main-block hidden" id="main12">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main12-day">
+        <div class="bg-layer" style="background-image: url('img/warehouse/warehouse_exterior/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/warehouse/warehouse_exterior/day/clouds1.webp');"></div>
+        <div class="hover-layer-warehouse_exterior" style="background-image: url('img/warehouse/warehouse_exterior/day/hover.webp');" onclick="switchMainBlock('main13', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/warehouse/warehouse_exterior/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main12-evening">
+        <div class="bg-layer" style="background-image: url('img/warehouse/warehouse_exterior/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/warehouse/warehouse_exterior/evening/clouds1.webp');"></div>
+        <div class="hover-layer-warehouse_exterior" style="background-image: url('img/warehouse/warehouse_exterior/evening/hover.webp');" onclick="switchMainBlock('main13', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/warehouse/warehouse_exterior/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main12-night">
+        <div class="bg-layer" style="background-image: url('img/warehouse/warehouse_exterior/night/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/warehouse/warehouse_exterior/night/clouds1.webp');"></div>
+        <div class="hover-layer-warehouse_exterior" style="background-image: url('img/warehouse/warehouse_exterior/night/hover.webp');" onclick="switchMainBlock('main13', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/warehouse/warehouse_exterior/night/night.webp');"></div>
+      </div>
+    </div>
+    <!--13 warehouse_interior -->
+    <div class="main-block hidden" id="main13">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main13-day">
+        <div class="bg-layer" style="background-image: url('img/warehouse/warehouse_interior/day/bg.webp');"></div>
+        <div class="hover-layer-warehouse_interior" style="background-image: url('img/warehouse/warehouse_interior/day/hover.webp');" onclick="switchMainBlock('main12', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main13-evening">
+        <div class="bg-layer" style="background-image: url('img/warehouse/warehouse_interior/evening/bg.webp');"></div>
+        <div class="hover-layer-warehouse_interior" style="background-image: url('img/warehouse/warehouse_interior/evening/hover.webp');" onclick="switchMainBlock('main12', currentTime)"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main13-night">
+        <div class="bg-layer" style="background-image: url('img/warehouse/warehouse_interior/night/bg.webp');"></div>
+        <div class="hover-layer-warehouse_interior" style="background-image: url('img/warehouse/warehouse_interior/night/hover.webp');" onclick="switchMainBlock('main12', currentTime)"></div>
+      </div>
+    </div>
+    <!--14 club_exterior -->
+    <div class="main-block hidden" id="main14">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main14-day">
+        <div class="bg-layer" style="background-image: url('img/club/club_exterior/day/bg.webp');"></div>
+        <div class="hover-layer-club" style="background-image: url('img/club/club_exterior/day/hover.webp');" onclick="switchMainBlock('main15', currentTime)"></div>
+        <div class="hover-layer-club_alley" style="background-image: url('img/club/club_exterior/day/hover_alley.webp');" onclick="switchMainBlock('main16', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main14-evening">
+        <div class="bg-layer" style="background-image: url('img/club/club_exterior/evening/bg.webp');"></div>
+        <div class="hover-layer-club" style="background-image: url('img/club/club_exterior/evening/hover.webp');" onclick="switchMainBlock('main15', currentTime)"></div>
+        <div class="hover-layer-club_alley" style="background-image: url('img/club/club_exterior/evening/hover_alley.webp');" onclick="switchMainBlock('main16', currentTime)"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main14-night">
+        <div class="bg-layer" style="background-image: url('img/club/club_exterior/night/bg.webp');"></div>
+        <div class="hover-layer-club" style="background-image: url('img/club/club_exterior/night/hover.webp');" onclick="switchMainBlock('main15', currentTime)"></div>
+        <div class="hover-layer-club_alley" style="background-image: url('img/club/club_exterior/night/hover_alley.webp');" onclick="switchMainBlock('main16', currentTime)"></div>
+      </div>
+    </div>
+    <!--15 club_interior -->
+    <div class="main-block hidden" id="main15">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main15-day">
+        <div class="bg-layer" style="background-image: url('img/club/club_interior/bg.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main15-evening">
+        <div class="bg-layer" style="background-image: url('img/club/club_interior/bg.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main15-night">
+        <div class="bg-layer" style="background-image: url('img/club/club_interior/bg.webp');"></div>
+      </div>
+    </div>
+    <!--16 club_alley -->
+    <div class="main-block hidden" id="main16">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main16-day">
+        <div class="bg-layer" style="background-image: url('img/club/club_alley/day/bg.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main16-evening">
+        <div class="bg-layer" style="background-image: url('img/club/club_alley/evening/bg.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main16-night">
+        <div class="bg-layer" style="background-image: url('img/club/club_alley/night/bg.webp');"></div>
+      </div>
+    </div>
+    <!--17 hotel_exterior -->
+    <div class="main-block hidden" id="main17">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main17-day">
+        <div class="bg-layer" style="background-image: url('img/hotel/hotel_exterior/day/bg.webp');"></div>
+        <div class="hover-layer-hotel" style="background-image: url('img/hotel/hotel_exterior/day/hover.webp');" onclick="switchMainBlock('main18', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main17-evening">
+        <div class="bg-layer" style="background-image: url('img/hotel/hotel_exterior/evening/bg.webp');"></div>
+        <div class="hover-layer-hotel" style="background-image: url('img/hotel/hotel_exterior/evening/hover.webp');" onclick="switchMainBlock('main18', currentTime)"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main17-night">
+        <div class="bg-layer" style="background-image: url('img/hotel/hotel_exterior/night/bg.webp');"></div>
+        <div class="hover-layer-hotel" style="background-image: url('img/hotel/hotel_exterior/night/hover.webp');" onclick="switchMainBlock('main18', currentTime)"></div>
+      </div>
+    </div>
+    <!--18 hotel_reception -->
+    <div class="main-block hidden" id="main18">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main18-day">
+        <div class="bg-layer" style="background-image: url('img/hotel/hotel_reception/bg.webp');"></div>
+        <div class="hover-layer-reception" style="background-image: url('img/hotel/hotel_reception/hover.webp');" onclick="switchMainBlock('main19', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main18-evening">
+        <div class="bg-layer" style="background-image: url('img/hotel/hotel_reception/bg.webp');"></div>
+        <div class="hover-layer-reception" style="background-image: url('img/hotel/hotel_reception/hover.webp');" onclick="switchMainBlock('main19', currentTime)"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main18-night">
+        <div class="bg-layer" style="background-image: url('img/hotel/hotel_reception/bg.webp');"></div>
+        <div class="hover-layer-reception" style="background-image: url('img/hotel/hotel_reception/hover.webp');" onclick="switchMainBlock('main19', currentTime)"></div>
+      </div>
+    </div>
+    <!--19 hotel_room -->
+    <div class="main-block hidden" id="main19">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main19-day">
+        <div class="bg-layer" style="background-image: url('img/hotel/hotel_room/bg.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main19-evening">
+        <div class="bg-layer" style="background-image: url('img/hotel/hotel_room/bg.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main19-night">
+        <div class="bg-layer" style="background-image: url('img/hotel/hotel_room/bg.webp');"></div>
+      </div>
+    </div>
+    <!--20 minato_exterior -->
+    <div class="main-block hidden" id="main20">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main20-day">
+        <div class="bg-layer" style="background-image: url('img/minato/minato_exterior/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/minato/minato_exterior/day/clouds1.webp');"></div>
+        <div class="hover-layer-minato_exterior" style="background-image: url('img/minato/minato_exterior/day/hover1.webp');" onclick="switchMainBlock('main21', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/minato/minato_exterior/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main20-evening">
+        <div class="bg-layer" style="background-image: url('img/minato/minato_exterior/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/minato/minato_exterior/evening/clouds1.webp');"></div>
+        <div class="hover-layer-minato_exterior" style="background-image: url('img/minato/minato_exterior/evening/hover1.webp');" onclick="switchMainBlock('main21', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/minato/minato_exterior/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main20-night">
+        <div class="bg-layer" style="background-image: url('img/minato/minato_exterior/night/bg.webp');"></div>
+        <div class="hover-layer-minato_exterior" style="background-image: url('img/minato/minato_exterior/night/hover1.webp');" onclick="switchMainBlock('main21', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/minato/minato_exterior/night/night.webp');"></div>
+        <div class="hover-layer-minato_exterior_light1" style="background-image: url('img/minato/minato_exterior/night/hover-light1.webp');"></div>
+        <div class="hover-layer-minato_exterior_light2" style="background-image: url('img/minato/minato_exterior/night/hover-light2.webp');"></div>
+        <div class="hover-layer-minato_exterior_light3" style="background-image: url('img/minato/minato_exterior/night/hover-light3.webp');"></div>
+        <div class="hover-layer-minato_exterior_light4" style="background-image: url('img/minato/minato_exterior/night/hover-light4.webp');"></div>
+        <div class="hover-layer-minato_exterior_light5" style="background-image: url('img/minato/minato_exterior/night/hover-light5.webp');"></div>
+        <div class="hover-layer-minato_exterior_light6" style="background-image: url('img/minato/minato_exterior/night/hover-light6.webp');"></div>
+        <div class="hover-layer-minato_exterior_light7" style="background-image: url('img/minato/minato_exterior/night/hover-light7.webp');"></div>
+        <div class="hover-layer-minato_exterior_light8" style="background-image: url('img/minato/minato_exterior/night/hover-light8.webp');"></div>
+      </div>
+    </div>
+    <!--21 minato_hallway -->
+    <div class="main-block hidden" id="main21">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main21-day">
+        <div class="bg-layer" style="background-image: url('img/minato/minato_hallway/day/bg.webp');"></div>
+        <div class="hover-layer-minato_hallway" style="background-image: url('img/minato/minato_hallway/day/hover.webp');" onclick="switchMainBlock('main22', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main21-evening">
+        <div class="bg-layer" style="background-image: url('img/minato/minato_hallway/evening/bg.webp');"></div>
+        <div class="hover-layer-minato_hallway" style="background-image: url('img/minato/minato_hallway/evening/hover.webp');" onclick="switchMainBlock('main22', currentTime)"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main21-night">
+        <div class="bg-layer" style="background-image: url('img/minato/minato_hallway/night/bg.webp');"></div>
+        <div class="hover-layer-minato_hallway" style="background-image: url('img/minato/minato_hallway/night/hover.webp');" onclick="switchMainBlock('main22', currentTime)"></div>
+      </div>
+    </div>
+    <!--22 minato_basement -->
+    <div class="main-block hidden" id="main22">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main22-day">
+        <div class="bg-layer" style="background-image: url('img/minato/minato_basement/bg.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main22-evening">
+        <div class="bg-layer" style="background-image: url('img/minato/minato_basement/bg.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main22-night">
+        <div class="bg-layer" style="background-image: url('img/minato/minato_basement/bg.webp');"></div>
+      </div>
+    </div>
+    <!--23 park_main -->
+    <div class="main-block hidden" id="main23">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main23-day">
+        <div class="bg-layer" style="background-image: url('img/park/park_main/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/park/park_main/day/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/park/park_main/day/clouds2.webp');"></div>
+        <div class="cloud-layer slowed" style="background-image: url('img/park/park_main/day/clouds3.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/park/park_main/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main23-evening">
+        <div class="bg-layer" style="background-image: url('img/park/park_main/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/park/park_main/evening/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/park/park_main/evening/clouds2.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/park/park_main/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main23-night">
+        <div class="bg-layer" style="background-image: url('img/park/park_main/night/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/park/park_main/night/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/park/park_main/night/clouds2.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/park/park_main/night/night.webp');"></div>
+      </div>
+    </div>
+    <!--24 park_exterior -->
+    <div class="main-block hidden" id="main24">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main24-day">
+        <div class="bg-layer" style="background-image: url('img/park/park_exterior/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/park/park_exterior/day/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/park/park_exterior/day/clouds2.webp');"></div>
+        <div class="hover-layer-park" style="background-image: url('img/park/park_exterior/day/hover.webp');" onclick="switchMainBlock('main25', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/park/park_exterior/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main24-evening">
+        <div class="bg-layer" style="background-image: url('img/park/park_exterior/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/park/park_exterior/evening/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/park/park_exterior/evening/clouds2.webp');"></div>
+        <div class="hover-layer-park" style="background-image: url('img/park/park_exterior/evening/hover.webp');" onclick="switchMainBlock('main25', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/park/park_exterior/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main24-night">
+        <div class="hover-layer-park" style="background-image: url('img/park/park_exterior/night/hover.webp');" onclick="switchMainBlock('main25', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/park/park_exterior/night/night.webp');"></div>
+      </div>
+    </div>
+    <!--25 park_interior -->
+    <div class="main-block hidden" id="main25">
+      <!-- Day -->
+      <div class="time-block time-hidden" id="main25-day">
+        <div class="bg-layer" style="background-image: url('img/park/park_interior/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/park/park_interior/day/clouds1.webp');"></div>
+        <div class="cloud-layer slowed" style="background-image: url('img/park/park_interior/day/clouds3.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/park/park_interior/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main25-evening">
+        <div class="bg-layer" style="background-image: url('img/park/park_interior/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/park/park_interior/evening/clouds1.webp');"></div>
+        <div class="cloud-layer slowed" style="background-image: url('img/park/park_interior/evening/clouds3.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/park/park_interior/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main25-night">
+        <div class="fon-layer" style="background-image: url('img/park/park_interior/night/night.webp');"></div>
+      </div>
+    </div>
+    <!--26 restaurant_exterior -->
+    <div class="main-block hidden" id="main26">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main26-day">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_exterior/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/restaurant/restaurant_exterior/day/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/restaurant/restaurant_exterior/day/clouds2.webp');"></div>
+        <div class="hover-layer-restaurant_exterior" style="background-image: url('img/restaurant/restaurant_exterior/day/hover.webp');" onclick="switchMainBlock('main27', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/restaurant/restaurant_exterior/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main26-evening">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_exterior/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/restaurant/restaurant_exterior/evening/clouds1.webp');"></div>
+        <div class="hover-layer-restaurant_exterior" style="background-image: url('img/restaurant/restaurant_exterior/evening/hover.webp');" onclick="switchMainBlock('main27', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/restaurant/restaurant_exterior/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main26-night">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_exterior/night/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/restaurant/restaurant_exterior/night/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/restaurant/restaurant_exterior/night/clouds2.webp');"></div>
+        <div class="hover-layer-restaurant_exterior" style="background-image: url('img/restaurant/restaurant_exterior/night/hover.webp');" onclick="switchMainBlock('main27', currentTime)"></div>
+        <div class="hover-layer-restaurant_light1" style="background-image: url('img/restaurant/restaurant_exterior/night/hover-light1.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/restaurant/restaurant_exterior/night/night.webp');"></div>
+      </div>
+    </div>
+    <!--27 restaurant_interior -->
+    <div class="main-block hidden" id="main27">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main27-day">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_interior/bg.webp');"></div>
+        <div class="hover-layer-restaurant_interior" style="background-image: url('img/restaurant/restaurant_interior/hover.webp');" onclick="switchMainBlock('main28', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main27-evening">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_interior/bg.webp');"></div>
+        <div class="hover-layer-restaurant_interior" style="background-image: url('img/restaurant/restaurant_interior/hover.webp');" onclick="switchMainBlock('main28', currentTime)"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main27-night">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_interior/bg.webp');"></div>
+        <div class="hover-layer-restaurant_interior" style="background-image: url('img/restaurant/restaurant_interior/hover.webp');" onclick="switchMainBlock('main28', currentTime)"></div>
+      </div>
+    </div>
+    <!--28 restaurant_sakuya_room -->
+    <div class="main-block hidden" id="main28">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main28-day">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_sakuya_room/day/bg.webp');"></div>
+        <div class="hover-layer-restaurant_sakuya_room" style="background-image: url('img/restaurant/restaurant_sakuya_room/day/hover.webp');" onclick="switchMainBlock('main27', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main28-evening">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_sakuya_room/evening/bg.webp');"></div>
+        <div class="hover-layer-restaurant_sakuya_room" style="background-image: url('img/restaurant/restaurant_sakuya_room/evening/hover.webp');" onclick="switchMainBlock('main27', currentTime)"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main28-night-light0">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_sakuya_room/night/bg-light0.webp');"></div>
+        <div class="hover-layer-restaurant_sakuya_room" style="background-image: url('img/restaurant/restaurant_sakuya_room/night/hover.webp');" onclick="switchMainBlock('main27', currentTime)"></div>
+        <div class="hover-layer-sakuya_room-switch1" style="background-image: url('img/restaurant/restaurant_sakuya_room/night/switch1-light0.webp');" onclick="toggleLight(1)"></div>
+      </div>
+      <div class="time-block time-hidden" id="main28-night-light1">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_sakuya_room/night/bg-light1.webp');"></div>
+        <div class="hover-layer-restaurant_sakuya_room" style="background-image: url('img/restaurant/restaurant_sakuya_room/night/hover-light1.webp');" onclick="switchMainBlock('main27', currentTime)"></div>
+        <div class="hover-layer-sakuya_room-switch1" style="background-image: url('img/restaurant/restaurant_sakuya_room/night/switch1-light1.webp');" onclick="toggleLight(1)"></div>
+      </div>
+    </div>
+    <!--29 onsen_exterior -->
+    <div class="main-block hidden" id="main29">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main29-day">
+        <div class="bg-layer" style="background-image: url('img/onsen/onsen_exterior/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/onsen/onsen_exterior/day/clouds1.webp');"></div>
+        <div class="hover-layer-onsen_exterior" style="background-image: url('img/onsen/onsen_exterior/day/hover.webp');" onclick="switchMainBlock('main30', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/onsen/onsen_exterior/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main29-evening">
+        <div class="bg-layer" style="background-image: url('img/onsen/onsen_exterior/evening/bg.webp');"></div>
+        <div class="hover-layer-onsen_exterior" style="background-image: url('img/onsen/onsen_exterior/evening/hover.webp');" onclick="switchMainBlock('main30', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/onsen/onsen_exterior/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main29-night">
+        <div class="bg-layer" style="background-image: url('img/onsen/onsen_exterior/night/bg.webp');"></div>
+        <div class="hover-layer-onsen_exterior" style="background-image: url('img/onsen/onsen_exterior/night/hover.webp');" onclick="switchMainBlock('main30', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/onsen/onsen_exterior/night/night.webp');"></div>
+      </div>
+    </div>
+    <!--30 onsen_interior -->
+    <div class="main-block hidden" id="main30">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main30-day">
+        <div class="bg-layer" style="background-image: url('img/onsen/onsen_interior/day/bg.webp');"></div>
+        <div class="hover-layer-onsen_interior-hover1" style="background-image: url('img/onsen/onsen_interior/day/hover1.webp');" onclick="switchMainBlock('main32', currentTime)"></div>
+        <div class="hover-layer-onsen_interior-hover2" style="background-image: url('img/onsen/onsen_interior/day/hover2.webp');" onclick="switchMainBlock('main31', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main30-evening">
+        <div class="bg-layer" style="background-image: url('img/onsen/onsen_interior/evening/bg.webp');"></div>
+        <div class="hover-layer-onsen_interior-hover1" style="background-image: url('img/onsen/onsen_interior/evening/hover1.webp');" onclick="switchMainBlock('main32', currentTime)"></div>
+        <div class="hover-layer-onsen_interior-hover2" style="background-image: url('img/onsen/onsen_interior/evening/hover2.webp');" onclick="switchMainBlock('main31', currentTime)"></div>
+      </div>
+      <!-- Night - Light Off -->
+      <div class="time-block time-hidden" id="main30-night-light0">
+        <div class="bg-layer" style="background-image: url('img/onsen/onsen_interior/night/bg-light0.webp');"></div>
+        <div class="hover-layer-onsen_interior-hover1" style="background-image: url('img/onsen/onsen_interior/night/hover1-light0.webp');" onclick="switchMainBlock('main32', currentTime)"></div>
+        <div class="hover-layer-onsen_interior-hover2" style="background-image: url('img/onsen/onsen_interior/night/hover2-light0.webp');" onclick="switchMainBlock('main31', currentTime)"></div>
+        <div class="hover-layer-onsen_interior-switch1" style="background-image: url('img/onsen/onsen_interior/night/switch1-light0.webp');" onclick="toggleLight(1)"></div>
+      </div>
+      <!-- Night - Light On -->
+      <div class="time-block time-hidden" id="main30-night-light1">
+        <div class="bg-layer" style="background-image: url('img/onsen/onsen_interior/night/bg-light1.webp');"></div>
+        <div class="hover-layer-onsen_interior-hover1" style="background-image: url('img/onsen/onsen_interior/night/hover1-light1.webp');" onclick="switchMainBlock('main32', currentTime)"></div>
+        <div class="hover-layer-onsen_interior-hover2" style="background-image: url('img/onsen/onsen_interior/night/hover2-light1.webp');" onclick="switchMainBlock('main31', currentTime)"></div>
+        <div class="hover-layer-onsen_interior-switch1" style="background-image: url('img/onsen/onsen_interior/night/switch1-light1.webp');" onclick="toggleLight(1)"></div>
+      </div>
+    </div>
+    <!--31 onsen_room -->
+    <div class="main-block hidden" id="main31">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main31-day">
+        <div class="bg-layer" style="background-image: url('img/onsen/onsen_room/day/bg.webp');"></div>
+        <div class="hover-layer-onsen_room" style="background-image: url('img/onsen/onsen_room/day/hover.webp');" onclick="switchMainBlock('main32', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main31-evening">
+        <div class="bg-layer" style="background-image: url('img/onsen/onsen_room/evening/bg.webp');"></div>
+        <div class="hover-layer-onsen_room" style="background-image: url('img/onsen/onsen_room/evening/hover.webp');" onclick="switchMainBlock('main32', currentTime)"></div>
+      </div>
+      <!-- Night - Light Off -->
+      <div class="time-block time-hidden" id="main31-night-light0">
+        <div class="bg-layer" style="background-image: url('img/onsen/onsen_room/night/bg-light0.webp');"></div>
+        <div class="hover-layer-onsen_room-night" style="background-image: url('img/onsen/onsen_room/night/hover-light0.webp');" onclick="switchMainBlock('main32', currentTime)"></div>
+        <div class="hover-layer-onsen_room-switch1" style="background-image: url('img/onsen/onsen_room/night/switch-light0.webp');" onclick="toggleLight(1)"></div>
+      </div>
+      <!-- Night - Light On -->
+      <div class="time-block time-hidden" id="main31-night-light1">
+        <div class="bg-layer" style="background-image: url('img/onsen/onsen_room/night/bg-light1.webp');"></div>
+        <div class="hover-layer-onsen_room-night" style="background-image: url('img/onsen/onsen_room/night/hover-light1.webp');" onclick="switchMainBlock('main32', currentTime)"></div>
+        <div class="hover-layer-onsen_room-switch1" style="background-image: url('img/onsen/onsen_room/night/switch-light1.webp');" onclick="toggleLight(1)"></div>
+      </div>
+    </div>
+    <!--32 onsen_bath -->
+    <div class="main-block hidden" id="main32">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main32-day">
+        <div class="bg-layer" style="background-image: url('img/onsen/onsen_bath/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/onsen/onsen_bath/day/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/onsen/onsen_bath/day/clouds2.webp');"></div>
+        <div class="hover-layer-onsen_bath-hover1" style="background-image: url('img/onsen/onsen_bath/day/hover1.webp');" onclick="switchMainBlock('main30', currentTime)"></div>
+        <div class="hover-layer-onsen_bath-hover2" style="background-image: url('img/onsen/onsen_bath/day/hover2.webp');" onclick="switchMainBlock('main31', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/onsen/onsen_bath/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main32-evening">
+        <div class="bg-layer" style="background-image: url('img/onsen/onsen_bath/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/onsen/onsen_bath/evening/clouds1.webp');"></div>
+        <div class="hover-layer-onsen_bath-hover1" style="background-image: url('img/onsen/onsen_bath/evening/hover1.webp');" onclick="switchMainBlock('main30', currentTime)"></div>
+        <div class="hover-layer-onsen_bath-hover2" style="background-image: url('img/onsen/onsen_bath/evening/hover2.webp');" onclick="switchMainBlock('main31', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/onsen/onsen_bath/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main32-night">
+        <div class="bg-layer" style="background-image: url('img/onsen/onsen_bath/night/bg.webp');"></div>
+        <div class="hover-layer-onsen_bath-hover1" style="background-image: url('img/onsen/onsen_bath/night/hover1.webp');" onclick="switchMainBlock('main30', currentTime)"></div>
+        <div class="hover-layer-onsen_bath-hover2" style="background-image: url('img/onsen/onsen_bath/night/hover2.webp');" onclick="switchMainBlock('main31', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/onsen/onsen_bath/night/night.webp');"></div>
+      </div>
+    </div>
+    <!--33 asami_exterior -->
+    <div class="main-block hidden" id="main33">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main33-day">
+        <div class="bg-layer" style="background-image: url('img/asami/asami_exterior/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/asami/asami_exterior/day/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/asami/asami_exterior/day/clouds2.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/asami/asami_exterior/day/day.webp');"></div>
+        <div class="hover-layer-asami_exterior" style="background-image: url('img/asami/asami_exterior/day/hover.webp');" onclick="switchMainBlock('main34', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main33-evening">
+        <div class="bg-layer" style="background-image: url('img/asami/asami_exterior/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/asami/asami_exterior/evening/clouds1.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/asami/asami_exterior/evening/evening.webp');"></div>
+        <div class="hover-layer-asami_exterior" style="background-image: url('img/asami/asami_exterior/evening/hover.webp');" onclick="switchMainBlock('main34', currentTime)"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main33-night">
+        <div class="bg-layer" style="background-image: url('img/asami/asami_exterior/night/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/asami/asami_exterior/night/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/asami/asami_exterior/night/clouds2.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/asami/asami_exterior/night/night.webp');"></div>
+        <div class="hover-layer-asami_exterior" style="background-image: url('img/asami/asami_exterior/night/hover.webp');" onclick="switchMainBlock('main34', currentTime)"></div>
+        <div class="hover-layer-asami_light1" style="background-image: url('img/asami/asami_exterior/night/hover-light1.webp');"></div>
+      </div>
+    </div>
+    <!--34 asami_livingroom -->
+    <div class="main-block hidden" id="main34">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main34-day">
+        <div class="bg-layer" style="background-image: url('img/asami/asami_livingroom/day/bg.webp');"></div>
+        <div class="hover-layer-asami_livingroom-hover1" style="background-image: url('img/asami/asami_livingroom/day/hover1.webp');" onclick="switchMainBlock('main33', currentTime)"></div>
+        <div class="hover-layer-asami_livingroom-hover2" style="background-image: url('img/asami/asami_livingroom/day/hover2.webp');" onclick="switchMainBlock('main35', currentTime)"></div>
+        <div class="hover-layer-asami_livingroom-hover3" style="background-image: url('img/asami/asami_livingroom/day/hover3.webp');" onclick="switchMainBlock('main36', currentTime)"></div>
+        <div class="hover-layer-asami_livingroom-hover4" style="background-image: url('img/asami/asami_livingroom/day/hover4.webp');" onclick="switchMainBlock('main37', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main34-evening">
+        <div class="bg-layer" style="background-image: url('img/asami/asami_livingroom/evening/bg.webp');"></div>
+        <div class="hover-layer-asami_livingroom-hover1" style="background-image: url('img/asami/asami_livingroom/evening/hover1.webp');" onclick="switchMainBlock('main33', currentTime)"></div>
+        <div class="hover-layer-asami_livingroom-hover2" style="background-image: url('img/asami/asami_livingroom/evening/hover2.webp');" onclick="switchMainBlock('main35', currentTime)"></div>
+        <div class="hover-layer-asami_livingroom-hover3" style="background-image: url('img/asami/asami_livingroom/evening/hover3.webp');" onclick="switchMainBlock('main36', currentTime)"></div>
+        <div class="hover-layer-asami_livingroom-hover4" style="background-image: url('img/asami/asami_livingroom/evening/hover4.webp');" onclick="switchMainBlock('main37', currentTime)"></div>
+      </div>
+      <!-- Night - Light Off -->
+      <div class="time-block time-hidden" id="main34-night-light0">
+        <div class="bg-layer" style="background-image: url('img/asami/asami_livingroom/night/bg-light0.webp');"></div>
+        <div class="hover-layer-asami_livingroom-hover1" style="background-image: url('img/asami/asami_livingroom/night/hover1-light0.webp');" onclick="switchMainBlock('main33', currentTime)"></div>
+        <div class="hover-layer-asami_livingroom-hover2" style="background-image: url('img/asami/asami_livingroom/night/hover2-light0.webp');" onclick="switchMainBlock('main35', currentTime)"></div>
+        <div class="hover-layer-asami_livingroom-hover3" style="background-image: url('img/asami/asami_livingroom/night/hover3-light0.webp');" onclick="switchMainBlock('main36', currentTime)"></div>
+        <div class="hover-layer-asami_livingroom-hover4" style="background-image: url('img/asami/asami_livingroom/night/hover4-light0.webp');" onclick="switchMainBlock('main37', currentTime)"></div>
+        <div class="hover-layer-asami_livingroom-switch1" style="background-image: url('img/asami/asami_livingroom/night/switch1-light0.webp');" onclick="toggleLight(1)"></div>
+      </div>
+      <!-- Night - Light On -->
+      <div class="time-block time-hidden" id="main34-night-light1">
+        <div class="bg-layer" style="background-image: url('img/asami/asami_livingroom/night/bg-light1.webp');"></div>
+        <div class="hover-layer-asami_livingroom-hover1" style="background-image: url('img/asami/asami_livingroom/night/hover1-light1.webp');" onclick="switchMainBlock('main33', currentTime)"></div>
+        <div class="hover-layer-asami_livingroom-hover2" style="background-image: url('img/asami/asami_livingroom/night/hover2-light1.webp');" onclick="switchMainBlock('main35', currentTime)"></div>
+        <div class="hover-layer-asami_livingroom-hover3" style="background-image: url('img/asami/asami_livingroom/night/hover3-light1.webp');" onclick="switchMainBlock('main36', currentTime)"></div>
+        <div class="hover-layer-asami_livingroom-hover4" style="background-image: url('img/asami/asami_livingroom/night/hover4-light1.webp');" onclick="switchMainBlock('main37', currentTime)"></div>
+        <div class="hover-layer-asami_livingroom-switch1" style="background-image: url('img/asami/asami_livingroom/night/switch1-light1.webp');" onclick="toggleLight(1)"></div>
+      </div>
+    </div>
+    <!--35 asami_room -->
+    <div class="main-block hidden" id="main35">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main35-day">
+        <div class="bg-layer" style="background-image: url('img/asami/asami_room/day/bg.webp');"></div>
+        <div class="hover-layer-asami_room-hover" style="background-image: url('img/asami/asami_room/day/hover.webp');" onclick="switchMainBlock('main34', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main35-evening">
+        <div class="bg-layer" style="background-image: url('img/asami/asami_room/evening/bg.webp');"></div>
+        <div class="hover-layer-asami_room-hover" style="background-image: url('img/asami/asami_room/evening/hover.webp');" onclick="switchMainBlock('main34', currentTime)"></div>
+      </div>
+      <!-- Night - Light Off -->
+      <div class="time-block time-hidden" id="main35-night-light0">
+        <div class="bg-layer" style="background-image: url('img/asami/asami_room/night/bg-light0.webp');"></div>
+        <div class="hover-layer-asami_room-hover" style="background-image: url('img/asami/asami_room/night/hover1-light0.webp');" onclick="switchMainBlock('main34', currentTime)"></div>
+        <div class="hover-layer-asami_room-switch1" style="background-image: url('img/asami/asami_room/night/switch1-light0.webp');" onclick="toggleLight(1)"></div>
+      </div>
+      <!-- Night - Light On -->
+      <div class="time-block time-hidden" id="main35-night-light1">
+        <div class="bg-layer" style="background-image: url('img/asami/asami_room/night/bg-light1.webp');"></div>
+        <div class="hover-layer-asami_room-hover" style="background-image: url('img/asami/asami_room/night/hover1-light1.webp');" onclick="switchMainBlock('main34', currentTime)"></div>
+        <div class="hover-layer-asami_room-switch1" style="background-image: url('img/asami/asami_room/night/switch1-light1.webp');" onclick="toggleLight(1)"></div>
+      </div>
+    </div>
+    <!--36 asami_bathroom -->
+    <div class="main-block hidden" id="main36">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main36-day">
+        <div class="bg-layer" style="background-image: url('img/asami/asami_bathroom/bg.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main36-evening">
+        <div class="bg-layer" style="background-image: url('img/asami/asami_bathroom/bg.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main36-night">
+        <div class="bg-layer" style="background-image: url('img/asami/asami_bathroom/bg.webp');"></div>
+      </div>
+    </div>
+    <!--37 asami_sayuri_room -->
+    <div class="main-block hidden" id="main37">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main37-day">
+        <div class="bg-layer" style="background-image: url('img/asami/sayuri_room/day/bg.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main37-evening">
+        <div class="bg-layer" style="background-image: url('img/asami/sayuri_room/evening/bg.webp');"></div>
+      </div>
+      <!-- Night - Light Off -->
+      <div class="time-block time-hidden" id="main37-night-light0">
+        <div class="bg-layer" style="background-image: url('img/asami/sayuri_room/night/bg-light0.webp');"></div>
+        <div class="hover-layer-asami_sayuri_switch1" style="background-image: url('img/asami/sayuri_room/night/switch1-light0.webp');" onclick="toggleLight(1)"></div>
+        <div class="hover-layer-asami_sayuri_switch1-1" style="background-image: url('img/asami/sayuri_room/night/switch2-light0.webp');" onclick="toggleLight(1)"></div>
+      </div>
+      <!-- Night - Light On -->
+      <div class="time-block time-hidden" id="main37-night-light1">
+        <div class="bg-layer" style="background-image: url('img/asami/sayuri_room/night/bg-light1.webp');"></div>
+        <div class="hover-layer-asami_sayuri_switch1" style="background-image: url('img/asami/sayuri_room/night/switch1-light1.webp');" onclick="toggleLight(1)"></div>
+        <div class="hover-layer-asami_sayuri_switch1-1" style="background-image: url('img/asami/sayuri_room/night/switch2-light1.webp');" onclick="toggleLight(1)"></div>
+      </div>
+    </div>
+    <!--38 home_exterior -->
+    <div class="main-block" id="main38">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main38-day">
+        <div class="bg-layer" style="background-image: url('img/home/home_exterior/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/home/home_exterior/day/clouds1.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/home/home_exterior/day/clouds2.webp');"></div>
+        <div class="hover-layer-home_exterior" style="background-image: url('img/home/home_exterior/day/hover.webp');" onclick="switchMainBlock('main39', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/home/home_exterior/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main38-evening">
+        <div class="bg-layer" style="background-image: url('img/home/home_exterior/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/home/home_exterior/evening/clouds1.webp');"></div>
+        <div class="hover-layer-home_exterior" style="background-image: url('img/home/home_exterior/evening/hover.webp');" onclick="switchMainBlock('main39', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/home/home_exterior/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main38-night">
+        <div class="bg-layer" style="background-image: url('img/home/home_exterior/night/bg.webp');"></div>
+        <div class="hover-layer-home_exterior" style="background-image: url('img/home/home_exterior/night/hover.webp');" onclick="switchMainBlock('main39', currentTime)"></div>
+        <div class="fon-layer" style="background-image: url('img/home/home_exterior/night/night.webp');"></div>
+      </div>
+    </div>
+    <!--39 home_hallway -->
+    <div class="main-block hidden" id="main39">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main39-day">
+        <div class="bg-layer" style="background-image: url('img/home/home_hallway/day/bg.webp');"></div>
+        <div class="hover-layer-home_hallway-hover1" style="background-image: url('img/home/home_hallway/day/hover1.webp');" onclick="switchMainBlock('main38', currentTime)"></div>
+        <div class="hover-layer-home_hallway-hover2" style="background-image: url('img/home/home_hallway/day/hover2.webp');" onclick="switchMainBlock('main40', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main39-evening">
+        <div class="bg-layer" style="background-image: url('img/home/home_hallway/evening/bg.webp');"></div>
+        <div class="hover-layer-home_hallway-hover1" style="background-image: url('img/home/home_hallway/evening/hover1.webp');" onclick="switchMainBlock('main38', currentTime)"></div>
+        <div class="hover-layer-home_hallway-hover2" style="background-image: url('img/home/home_hallway/evening/hover2.webp');" onclick="switchMainBlock('main40', currentTime)"></div>
+      </div>
+      <!-- Night - Light Off -->
+      <div class="time-block time-hidden" id="main39-night-light0">
+        <div class="bg-layer" style="background-image: url('img/home/home_hallway/night/bg-light0.webp');"></div>
+        <div class="hover-layer-home_hallway-hover1" style="background-image: url('img/home/home_hallway/night/hover1-light0.webp');" onclick="switchMainBlock('main38', currentTime)"></div>
+        <div class="hover-layer-home_hallway-hover2" style="background-image: url('img/home/home_hallway/night/hover2-light0.webp');" onclick="switchMainBlock('main40', currentTime)"></div>
+        <div class="hover-layer-home_hallway-switch1" style="background-image: url('img/home/home_hallway/night/switch1-light0.webp');" onclick="toggleLight(1)"></div>
+      </div>
+      <!-- Night - Light On -->
+      <div class="time-block time-hidden" id="main39-night-light1">
+        <div class="bg-layer" style="background-image: url('img/home/home_hallway/night/bg-light1.webp');"></div>
+        <div class="hover-layer-home_hallway-hover1" style="background-image: url('img/home/home_hallway/night/hover1-light1.webp');" onclick="switchMainBlock('main38', currentTime)"></div>
+        <div class="hover-layer-home_hallway-hover2" style="background-image: url('img/home/home_hallway/night/hover2-light1.webp');" onclick="switchMainBlock('main40', currentTime)"></div>
+        <div class="hover-layer-home_hallway-switch1" style="background-image: url('img/home/home_hallway/night/switch1-light1.webp');" onclick="toggleLight(1)"></div>
+      </div>
+    </div>
+    <!--40 home_livingroom -->
+    <div class="main-block hidden" id="main40">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main40-day">
+        <div class="bg-layer" style="background-image: url('img/home/home_livingroom/day/bg.webp');"></div>
+        <div class="hover-layer-home_livingroom-hover1" style="background-image: url('img/home/home_livingroom/day/hover1.webp');" onclick="switchMainBlock('main41', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-hover2" style="background-image: url('img/home/home_livingroom/day/hover2.webp');" onclick="switchMainBlock('main45', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-hover3" style="background-image: url('img/home/home_livingroom/day/hover3.webp');" onclick="switchMainBlock('main39', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main40-evening">
+        <div class="bg-layer" style="background-image: url('img/home/home_livingroom/evening/bg.webp');"></div>
+        <div class="hover-layer-home_livingroom-hover1" style="background-image: url('img/home/home_livingroom/evening/hover1.webp');" onclick="switchMainBlock('main41', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-hover2" style="background-image: url('img/home/home_livingroom/evening/hover2.webp');" onclick="switchMainBlock('main45', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-hover3" style="background-image: url('img/home/home_livingroom/evening/hover3.webp');" onclick="switchMainBlock('main39', currentTime)"></div>
+      </div>
+      <!-- Night - Light Off -->
+      <div class="time-block time-hidden" id="main40-night-light0">
+        <div class="bg-layer" style="background-image: url('img/home/home_livingroom/night/bg-light0.webp');"></div>
+        <div class="hover-layer-home_livingroom-hover1" style="background-image: url('img/home/home_livingroom/night/hover1-light0.webp');" onclick="switchMainBlock('main41', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-hover2" style="background-image: url('img/home/home_livingroom/night/hover2-light0.webp');" onclick="switchMainBlock('main45', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-hover3" style="background-image: url('img/home/home_livingroom/night/hover3-light0.webp');" onclick="switchMainBlock('main39', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-switch1" style="background-image: url('img/home/home_livingroom/night/switch1-light0.webp');" onclick="toggleLight(1)"></div>
+        <div class="hover-layer-home_livingroom-switch2" style="background-image: url('img/home/home_livingroom/night/switch2-light0.webp');" onclick="toggleLight(2)"></div>
+      </div>
+      <!-- Night - Light On -->
+      <div class="time-block time-hidden" id="main40-night-light1">
+        <div class="bg-layer" style="background-image: url('img/home/home_livingroom/night/bg-light1.webp');"></div>
+        <div class="hover-layer-home_livingroom-hover1" style="background-image: url('img/home/home_livingroom/night/hover1-light1.webp');" onclick="switchMainBlock('main41', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-hover2" style="background-image: url('img/home/home_livingroom/night/hover2-light1.webp');" onclick="switchMainBlock('main45', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-hover3" style="background-image: url('img/home/home_livingroom/night/hover3-light1.webp');" onclick="switchMainBlock('main39', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-switch1" style="background-image: url('img/home/home_livingroom/night/switch1-light1.webp');" onclick="toggleLight(1)"></div>
+        <div class="hover-layer-home_livingroom-switch2" style="background-image: url('img/home/home_livingroom/night/switch2-light1.webp');" onclick="toggleLight(2)"></div>
+      </div>
+      <div class="time-block time-hidden" id="main40-night-light2">
+        <div class="bg-layer" style="background-image: url('img/home/home_livingroom/night/bg-light2.webp');"></div>
+        <div class="hover-layer-home_livingroom-hover1" style="background-image: url('img/home/home_livingroom/night/hover1-light2.webp');" onclick="switchMainBlock('main41', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-hover2" style="background-image: url('img/home/home_livingroom/night/hover2-light2.webp');" onclick="switchMainBlock('main45', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-hover3" style="background-image: url('img/home/home_livingroom/night/hover3-light2.webp');" onclick="switchMainBlock('main39', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-switch1" style="background-image: url('img/home/home_livingroom/night/switch1-light2.webp');" onclick="toggleLight(1)"></div>
+        <div class="hover-layer-home_livingroom-switch2" style="background-image: url('img/home/home_livingroom/night/switch2-light2.webp');" onclick="toggleLight(2)"></div>
+      </div>
+      <div class="time-block time-hidden" id="main40-night-light3">
+        <div class="bg-layer" style="background-image: url('img/home/home_livingroom/night/bg-light3.webp');"></div>
+        <div class="hover-layer-home_livingroom-hover1" style="background-image: url('img/home/home_livingroom/night/hover1-light3.webp');" onclick="switchMainBlock('main41', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-hover2" style="background-image: url('img/home/home_livingroom/night/hover2-light3.webp');" onclick="switchMainBlock('main45', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-hover3" style="background-image: url('img/home/home_livingroom/night/hover3-light3.webp');" onclick="switchMainBlock('main39', currentTime)"></div>
+        <div class="hover-layer-home_livingroom-switch1" style="background-image: url('img/home/home_livingroom/night/switch1-light3.webp');" onclick="toggleLight(1)"></div>
+        <div class="hover-layer-home_livingroom-switch2" style="background-image: url('img/home/home_livingroom/night/switch2-light3.webp');" onclick="toggleLight(2)"></div>
+      </div>
+    </div>
+    <!--41 home_corridor -->
+    <div class="main-block hidden" id="main41">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main41-day">
+        <div class="bg-layer" style="background-image: url('img/home/home_corridor/day/bg.webp');"></div>
+        <div class="hover-layer-home_corridor-hover1" style="background-image: url('img/home/home_corridor/day/hover1.webp');" onclick="switchMainBlock('main40', currentTime)"></div>
+        <div class="hover-layer-home_corridor-hover2" style="background-image: url('img/home/home_corridor/day/hover2-light0.webp');" onclick="switchMainBlock('main42', currentTime)"></div>
+        <div class="hover-layer-home_corridor-hover3" style="background-image: url('img/home/home_corridor/day/hover3.webp');" onclick="switchMainBlock('main43', currentTime)"></div>
+        <div class="hover-layer-home_corridor-hover4" style="background-image: url('img/home/home_corridor/day/hover4.webp');" onclick="switchMainBlock('main44', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main41-evening">
+        <div class="bg-layer" style="background-image: url('img/home/home_corridor/evening/bg.webp');"></div>
+        <div class="hover-layer-home_corridor-hover1" style="background-image: url('img/home/home_corridor/evening/hover1.webp');" onclick="switchMainBlock('main40', currentTime)"></div>
+        <div class="hover-layer-home_corridor-hover2" style="background-image: url('img/home/home_corridor/evening/hover2-light0.webp');" onclick="switchMainBlock('main42', currentTime)"></div>
+        <div class="hover-layer-home_corridor-hover3" style="background-image: url('img/home/home_corridor/evening/hover3.webp');" onclick="switchMainBlock('main43', currentTime)"></div>
+        <div class="hover-layer-home_corridor-hover4" style="background-image: url('img/home/home_corridor/evening/hover4.webp');" onclick="switchMainBlock('main44', currentTime)"></div>
+      </div>
+      <!-- Night - Light Off -->
+      <div class="time-block time-hidden" id="main41-night-light0">
+        <div class="bg-layer" style="background-image: url('img/home/home_corridor/night/bg.webp');"></div>
+        <div class="hover-layer-home_corridor-hover1" style="background-image: url('img/home/home_corridor/night/hover1.webp');" onclick="switchMainBlock('main40', currentTime)"></div>
+        <div class="hover-layer-home_corridor-hover2" style="background-image: url('img/home/home_corridor/night/hover2-light0.webp');" onclick="switchMainBlock('main42', currentTime)"></div>
+        <div class="hover-layer-home_corridor-hover3" style="background-image: url('img/home/home_corridor/night/hover3.webp');" onclick="switchMainBlock('main43', currentTime)"></div>
+        <div class="hover-layer-home_corridor-hover4" style="background-image: url('img/home/home_corridor/night/hover4.webp');" onclick="switchMainBlock('main44', currentTime)"></div>
+        <div class="hover-layer-home_corridor-switch1" style="background-image: url('img/home/home_corridor/night/switch1.webp');" onclick="toggleLight(1)"></div>
+      </div>
+      <!-- Night - Light On -->
+      <div class="time-block time-hidden" id="main41-night-light1">
+        <div class="bg-layer" style="background-image: url('img/home/home_corridor/night/bg.webp');"></div> <!-- Фон НЕ меняется -->
+        <div class="hover-layer-home_corridor-hover1" style="background-image: url('img/home/home_corridor/night/hover1.webp');" onclick="switchMainBlock('main40', currentTime)"></div>
+        <div class="hover-layer-home_corridor-hover2-light1" style="background-image: url('img/home/home_corridor/night/hover2-light1.webp');" onclick="switchMainBlock('main42', currentTime)"></div>
+        <div class="hover-layer-home_corridor-hover3" style="background-image: url('img/home/home_corridor/night/hover3.webp');" onclick="switchMainBlock('main43', currentTime)"></div>
+        <div class="hover-layer-home_corridor-hover4" style="background-image: url('img/home/home_corridor/night/hover4.webp');" onclick="switchMainBlock('main44', currentTime)"></div>
+        <div class="hover-layer-home_corridor-switch1" style="background-image: url('img/home/home_corridor/night/switch1.webp');" onclick="toggleLight(1)"></div>
+      </div>
+    </div>
+    <!--42 home_bathroom -->
+    <div class="main-block hidden" id="main42">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main42-day">
+        <div class="bg-layer" style="background-image: url('img/home/home_bathroom/day/bg.webp');"></div>
+        <div class="hover-layer-home_bathroom-hover1" style="background-image: url('img/home/home_bathroom/day/hover.webp');" onclick="switchMainBlock('main41', currentTime)"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main42-evening">
+        <div class="bg-layer" style="background-image: url('img/home/home_bathroom/evening/bg.webp');"></div>
+        <div class="hover-layer-home_bathroom-hover1" style="background-image: url('img/home/home_bathroom/evening/hover.webp');" onclick="switchMainBlock('main41', currentTime)"></div>
+      </div>
+      <!-- Night - Light Off (зависит от состояния света в коридоре) -->
+      <div class="time-block time-hidden" id="main42-night-light0">
+        <div class="bg-layer" style="background-image: url('img/home/home_bathroom/night/bg-light0.webp');"></div>
+        <div class="hover-layer-home_bathroom-hover1" style="background-image: url('img/home/home_bathroom/night/hover-light0.webp');" onclick="switchMainBlock('main41', currentTime)"></div>
+      </div>
+      <!-- Night - Light On (зависит от состояния света в коридоре) -->
+      <div class="time-block time-hidden" id="main42-night-light1">
+        <div class="bg-layer" style="background-image: url('img/home/home_bathroom/night/bg-light1.webp');"></div>
+        <div class="hover-layer-home_bathroom-hover1" style="background-image: url('img/home/home_bathroom/night/hover-light1.webp');" onclick="switchMainBlock('main41', currentTime)"></div>
+      </div>
+    </div>
+    <!--43 home_noriko_room -->
+    <div class="main-block hidden" id="main43">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main43-day">
+        <div class="bg-layer" style="background-image: url('img/home/home_noriko_room/day/bg.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main43-evening">
+        <div class="bg-layer" style="background-image: url('img/home/home_noriko_room/evening/bg.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main43-night">
+        <div class="bg-layer" style="background-image: url('img/home/home_noriko_room/night/bg.webp');"></div>
+      </div>
+    </div>
+    <!--44 home_saito_room -->
+    <div class="main-block hidden" id="main44">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main44-day">
+        <div class="bg-layer" style="background-image: url('img/home/home_saito_room/day/bg.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main44-evening">
+        <div class="bg-layer" style="background-image: url('img/home/home_saito_room/evening/bg.webp');"></div>
+      </div>
+      <!-- Night - Light Off -->
+      <div class="time-block time-hidden" id="main44-night-light0">
+        <div class="bg-layer" style="background-image: url('img/home/home_saito_room/night/bg-light0.webp');"></div>
+        <div class="hover-layer-home_saito-switch1" style="background-image: url('img/home/home_saito_room/night/switch-light0.webp');" onclick="toggleLight(1)"></div>
+      </div>
+      <!-- Night - Light On -->
+      <div class="time-block time-hidden" id="main44-night-light1">
+        <div class="bg-layer" style="background-image: url('img/home/home_saito_room/night/bg-light1.webp');"></div>
+        <div class="hover-layer-home_saito-switch1" style="background-image: url('img/home/home_saito_room/night/switch-light1.webp');" onclick="toggleLight(1)"></div>
+      </div>
+    </div>
+    <!--45 home_yasuka_room -->
+    <div class="main-block hidden" id="main45">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main45-day">
+        <div class="bg-layer" style="background-image: url('img/home/home_yasuka_room/day/bg.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main45-evening">
+        <div class="bg-layer" style="background-image: url('img/home/home_yasuka_room/evening/bg.webp');"></div>
+      </div>
+      <!-- Night - Light Off -->
+      <div class="time-block time-hidden" id="main45-night-light0">
+        <div class="bg-layer" style="background-image: url('img/home/home_yasuka_room/night/bg-light0.webp');"></div>
+        <div class="hover-layer-home_yasuka-switch1" style="background-image: url('img/home/home_yasuka_room/night/switch-light0.webp');" onclick="toggleLight(1)"></div>
+      </div>
+      <!-- Night - Light On -->
+      <div class="time-block time-hidden" id="main45-night-light1">
+        <div class="bg-layer" style="background-image: url('img/home/home_yasuka_room/night/bg-light1.webp');"></div>
+        <div class="hover-layer-home_yasuka-switch1" style="background-image: url('img/home/home_yasuka_room/night/switch-light1.webp');" onclick="toggleLight(1)"></div>
+      </div>
+    </div>
+    <!--44 home_saito_room -->
+    <div class="main-block hidden" id="main44">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main44-day">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_sakuya_room/day/bg.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main44-evening">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_sakuya_room/evening/bg.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main44-night">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_sakuya_room/night/bg.webp');"></div>
+        <!-- lamp light<div class="fon-layer" style="background-image: url('img/restaurant/restaurant_sakuya_room/night/night.webp');"></div>	 -->
+      </div>
+    </div>
+    <!--45 home_yasuka_room -->
+    <div class="main-block hidden" id="main45">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main45-day">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_sakuya_room/day/bg.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main45-evening">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_sakuya_room/evening/bg.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main45-night">
+        <div class="bg-layer" style="background-image: url('img/restaurant/restaurant_sakuya_room/night/bg.webp');"></div>
+        <!-- lamp light<div class="fon-layer" style="background-image: url('img/restaurant/restaurant_sakuya_room/night/night.webp');"></div>	 -->
+      </div>
+    </div>
+    <!--46 dojo_exterior -->
+    <div class="main-block hidden" id="main46">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main46-day">
+        <div class="bg-layer" style="background-image: url('img/dojo/dojo_exterior/day/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/dojo/dojo_exterior/day/clouds1.webp');"></div>
+        <!-- <div class="hover-layer-hover-doors_close" style="background-image: url('img/dojo/dojo_exterior/day/hover-doors_close.webp');" onclick="switchMainBlock('main47', currentTime)"></div> -->
+        <!-- <div class="hover-layer-hover-doors_open" style="background-image: url('img/dojo/dojo_exterior/day/hover-doors_open.webp');" onclick="switchMainBlock('main47', currentTime)"></div> -->
+        <div class="fon-layer" style="background-image: url('img/dojo/dojo_exterior/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main46-evening">
+        <div class="bg-layer" style="background-image: url('img/dojo/dojo_exterior/evening/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/dojo/dojo_exterior/evening/clouds1.webp');"></div>
+        <!-- <div class="hover-layer-hover-doors_close" style="background-image: url('img/dojo/dojo_exterior/day/hover-doors_close.webp');" onclick="switchMainBlock('main47', currentTime)"></div> -->
+        <!-- <div class="hover-layer-hover-doors_open" style="background-image: url('img/dojo/dojo_exterior/day/hover-doors_open.webp');" onclick="switchMainBlock('main47', currentTime)"></div> -->
+        <div class="fon-layer" style="background-image: url('img/dojo/dojo_exterior/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main46-night">
+        <div class="bg-layer" style="background-image: url('img/dojo/dojo_exterior/night/bg.webp');"></div>
+        <div class="cloud-layer" style="background-image: url('img/dojo/dojo_exterior/night/clouds1.webp');"></div>
+        <!-- <div class="hover-layer-hover-doors_close" style="background-image: url('img/dojo/dojo_exterior/day/hover-doors_close.webp');" onclick="switchMainBlock('main47', currentTime)"></div> -->
+        <!-- <div class="hover-layer-hover-doors_open" style="background-image: url('img/dojo/dojo_exterior/day/hover-doors_open.webp');" onclick="switchMainBlock('main47', currentTime)"></div> -->
+        <div class="hover-layer-dojo_light1" style="background-image: url('img/dojo/dojo_exterior/night/hover-light1.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/dojo/dojo_exterior/night/night.webp');"></div>
+      </div>
+    </div>
+    <!-- 47 dojo_interior
+            <div class="main-block hidden" id="main47">
+                Day
+                <div class="time-block time-visible" id="main47-day">
+                    <div class="bg-layer" style="background-image: url('img/dojo/dojo_interior/day/bg.webp');"></div>
+					<div class="cloud-layer" style="background-image: url('img/dojo/dojo_interior/day/clouds1.webp');"></div>
+					<div class="fon-layer" style="background-image: url('img/dojo/dojo_interior/day/day.webp');"></div>	
+                </div>
+                Evening
+                <div class="time-block time-hidden" id="main47-evening">
+                    <div class="bg-layer" style="background-image: url('img/dojo/dojo_interior/evening/bg.webp');"></div>
+					<div class="cloud-layer" style="background-image: url('img/dojo/dojo_interior/evening/clouds1.webp');"></div>
+					<div class="fon-layer" style="background-image: url('img/dojo/dojo_interior/evening/evening.webp');"></div>
+                </div>
+                Night
+                <div class="time-block time-hidden" id="main47-night">
+                   <div class="bg-layer" style="background-image: url('img/dojo/dojo_interior/night/bg.webp');"></div>
+					<div class="cloud-layer" style="background-image: url('img/dojo/dojo_interior/night/clouds1.webp');"></div>
+					<div class="fon-layer" style="background-image: url('img/dojo/dojo_interior/night/night.webp');"></div>
+					<div class="light1-layer" style="background-image: url('img/dojo/dojo_interior/night/light1.webp');"></div>
+                </div>
+            </div> 		 -->
+    <!--48 kenji_exterior -->
+    <div class="main-block hidden" id="main48">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main48-day">
+        <div class="bg-layer" style="background-image: url('img/kenji/kenji_exterior/day/bg.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main48-evening">
+        <div class="bg-layer" style="background-image: url('img/kenji/kenji_exterior/evening/bg.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main48-night">
+        <div class="bg-layer" style="background-image: url('img/kenji/kenji_exterior/night/bg.webp');"></div>
+      </div>
+    </div>
+    <!-- 49 kenji_interior
+            <div class="main-block hidden" id="main49">
+                Day
+                <div class="time-block time-visible" id="main49-day">
+                    <div class="bg-layer" style="background-image: url('img/kenji/kenji_interior/day/bg.webp');"></div>
+                </div>
+                Evening
+                <div class="time-block time-hidden" id="main49-evening">
+                    <div class="bg-layer" style="background-image: url('img/kenji/kenji_interior/evening/bg.webp');"></div>
+                </div>
+                Night
+                <div class="time-block time-hidden" id="main49-night">
+                   <div class="bg-layer" style="background-image: url('img/kenji/kenji_interior/night/bg.webp');"></div>
+                </div>
+            </div> 	 -->
+    <!--50 natsume_exterior -->
+    <div class="main-block hidden" id="main50">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main50-day">
+        <div class="bg-layer" style="background-image: url('img/natsume/natsume_exterior/day/bg.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/natsume/natsume_exterior/day/clouds1.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/natsume/natsume_exterior/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main50-evening">
+        <div class="bg-layer" style="background-image: url('img/natsume/natsume_exterior/evening/bg.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/natsume/natsume_exterior/evening//clouds1.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/natsume/natsume_exterior/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main50-night">
+        <div class="bg-layer" style="background-image: url('img/natsume/natsume_exterior/night/bg.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/natsume/natsume_exterior/night/night.webp');"></div>
+      </div>
+    </div>
+    <!-- 51 natsume_interior
+            <div class="main-block hidden" id="main51">
+                Day
+                <div class="time-block time-visible" id="main51-day">
+                    <div class="bg-layer" style="background-image: url('img/natsume/natsume_interior/day/bg.webp');"></div>
+					<div class="cloud-layer slow" style="background-image: url('img/natsume/natsume_interior/day/clouds1.webp');"></div>
+					<div class="fon-layer" style="background-image: url('img/natsume/natsume_interior/day/day.webp');"></div>	
+                </div>
+                Evening
+                <div class="time-block time-hidden" id="main51-evening">
+                    <div class="bg-layer" style="background-image: url('img/natsume/natsume_interior/evening/bg.webp');"></div>
+					<div class="cloud-layer slow" style="background-image: url('img/natsume/natsume_interior/evening//clouds1.webp');"></div>
+					<div class="fon-layer" style="background-image: url('img/natsume/natsume_interior/evening/evening.webp');"></div>	
+                </div>
+                Night
+                <div class="time-block time-hidden" id="main51-night">
+                   <div class="bg-layer" style="background-image: url('img/natsume/natsume_interior/night/bg.webp');"></div>
+				   <div class="fon-layer" style="background-image: url('img/natsume/natsume_interior/night/night.webp');"></div>	
+                </div>
+            </div>  -->
+    <!--52 nobu_exterior -->
+    <div class="main-block hidden" id="main52">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main52-day">
+        <div class="bg-layer" style="background-image: url('img/nobu/nobu_exterior/day/bg.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/nobu/nobu_exterior/day/clouds1.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/nobu/nobu_exterior/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main52-evening">
+        <div class="bg-layer" style="background-image: url('img/nobu/nobu_exterior/evening/bg.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/nobu/nobu_exterior/evening/clouds1.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/nobu/nobu_exterior/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main52-night">
+        <div class="bg-layer" style="background-image: url('img/nobu/nobu_exterior/night/bg.webp');"></div>
+        <div class="hover-layer-nobu_light1" style="background-image: url('img/nobu/nobu_exterior/night/hover-light1.webp');"></div>
+        <div class="hover-layer-nobu_light2" style="background-image: url('img/nobu/nobu_exterior/night/hover-light2.webp');"></div>
+        <div class="hover-layer-nobu_light3" style="background-image: url('img/nobu/nobu_exterior/night/hover-light3.webp');"></div>
+        <div class="hover-layer-nobu_light4" style="background-image: url('img/nobu/nobu_exterior/night/hover-light4.webp');"></div>
+        <div class="hover-layer-nobu_light5" style="background-image: url('img/nobu/nobu_exterior/night/hover-light5.webp');"></div>
+        <div class="hover-layer-nobu_light6" style="background-image: url('img/nobu/nobu_exterior/night/hover-light6.webp');"></div>
+      </div>
+    </div>
+    <!-- 53 nobu_interior
+            <div class="main-block hidden" id="main53">
+                Day
+                <div class="time-block time-visible" id="main53-day">
+                    <div class="bg-layer" style="background-image: url('img/nobu/nobu_interior/day/bg.webp');"></div>
+					<div class="cloud-layer slow" style="background-image: url('img/nobu/nobu_interior/day/clouds1.webp');"></div>
+					<div class="fon-layer" style="background-image: url('img/nobu/nobu_interior/day/day.webp');"></div>	
+                </div>
+                Evening
+                <div class="time-block time-hidden" id="main53-evening">
+                    <div class="bg-layer" style="background-image: url('img/nobu/nobu_interior/evening/bg.webp');"></div>
+					<div class="cloud-layer slow" style="background-image: url('img/nobu/nobu_interior/evening/clouds1.webp');"></div>
+					<div class="fon-layer" style="background-image: url('img/nobu/nobu_interior/evening/evening.webp');"></div>	
+                </div>
+                Night
+                <div class="time-block time-hidden" id="main53-night">
+                    <div class="bg-layer" style="background-image: url('img/nobu/nobu_interior/night/bg.webp');"></div>
+					<div class="fon-layer" style="background-image: url('img/nobu/nobu_interior/night/night.webp');"></div>	
+                </div>
+            </div> 	 -->
+    <!--54 takeo_exterior -->
+    <div class="main-block hidden" id="main54">
+      <!-- Day -->
+      <div class="time-block time-visible" id="main54-day">
+        <div class="bg-layer" style="background-image: url('img/takeo/takeo_exterior/day/bg.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/takeo/takeo_exterior/day/clouds1.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/takeo/takeo_exterior/day/day.webp');"></div>
+      </div>
+      <!-- Evening -->
+      <div class="time-block time-hidden" id="main54-evening">
+        <div class="bg-layer" style="background-image: url('img/takeo/takeo_exterior/evening/bg.webp');"></div>
+        <div class="cloud-layer slow" style="background-image: url('img/takeo/takeo_exterior/evening//clouds1.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/takeo/takeo_exterior/evening/evening.webp');"></div>
+      </div>
+      <!-- Night -->
+      <div class="time-block time-hidden" id="main54-night">
+        <div class="bg-layer" style="background-image: url('img/takeo/takeo_exterior/night/bg.webp');"></div>
+        <div class="fon-layer" style="background-image: url('img/takeo/takeo_exterior/night/night.webp');"></div>
+        <!-- <div class="hover-layer-takeo_exterior_light1" style="background-image: url('img/takeo/takeo_exterior/night/hover-light1.webp');"></div> -->
+        <div class="hover-layer-takeo_exterior_light2" style="background-image: url('img/takeo/takeo_exterior/night/hover-light2.webp');"></div>
+        <div class="hover-layer-takeo_exterior_light3" style="background-image: url('img/takeo/takeo_exterior/night/hover-light3.webp');"></div>
+        <div class="hover-layer-takeo_exterior_light4" style="background-image: url('img/takeo/takeo_exterior/night/hover-light4.webp');"></div>
+      </div>
+    </div>
+    <!-- 55 takeo_interior
+            <div class="main-block hidden" id="main55">
+                Day
+                <div class="time-block time-visible" id="main55-day">
+                    <div class="bg-layer" style="background-image: url('img/takeo/takeo_interior/day/bg.webp');"></div>
+					<div class="cloud-layer slow" style="background-image: url('img/takeo/takeo_interior/day/clouds1.webp');"></div>
+					<div class="fon-layer" style="background-image: url('img/takeo/takeo_interior/day/day.webp');"></div>	
+                </div>
+                Evening
+                <div class="time-block time-hidden" id="main55-evening">
+                    <div class="bg-layer" style="background-image: url('img/takeo/takeo_interior/evening/bg.webp');"></div>
+					<div class="cloud-layer slow" style="background-image: url('img/takeo/takeo_interior/evening//clouds1.webp');"></div>
+					<div class="fon-layer" style="background-image: url('img/takeo/takeo_interior/evening/evening.webp');"></div>	
+                </div>
+                Night
+                <div class="time-block time-hidden" id="main55-night">
+                   <div class="bg-layer" style="background-image: url('img/takeo/takeo_interior/night/bg.webp');"></div>
+				   <div class="fon-layer" style="background-image: url('img/takeo/takeo_interior/night/night.webp');"></div>	
+                </div>
+            </div> 		 -->
+    <div class="password-modal hidden" id="passwordModal">
+      <div class="password-modal-content">
+        <div class="password-display" id="passwordDisplay">_ _ _ _ _ _</div>
+        <div class="password-keyboard">
+          <div class="password-row">
+            <button class="password-key" data-key="1">1</button>
+            <button class="password-key" data-key="2">2</button>
+            <button class="password-key" data-key="3">3</button>
+          </div>
+          <div class="password-row">
+            <button class="password-key" data-key="4">4</button>
+            <button class="password-key" data-key="5">5</button>
+            <button class="password-key" data-key="6">6</button>
+          </div>
+          <div class="password-row">
+            <button class="password-key" data-key="7">7</button>
+            <button class="password-key" data-key="8">8</button>
+            <button class="password-key" data-key="9">9</button>
+          </div>
+          <div class="password-row">
+            <button class="password-key" data-key="0">0</button>
+            <button class="password-key" id="passwordBackspace">⌫</button>
+            <button class="password-key" id="passwordSubmit">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="switch-top-container">
+      <div class="switch-hover-area">
+        <div class="switch">
+          <div class="switch-option active" data-value="day" onclick="switchTimeOfDay('day')">Day</div>
+          <div class="switch-option" data-value="evening" onclick="switchTimeOfDay('evening')">Evening</div>
+          <div class="switch-option" data-value="night" onclick="switchTimeOfDay('night')">Night</div>
+          <div class="switch-slider"></div>
+        </div>
+      </div>
+    </div>
+    <button class="language-button ru" id="languageButton" onclick="toggleLanguage()">
+      <div class="language-text-container">
+        <span id="languageTextRu" class="language-text">ru</span>
+        <span id="languageTextEn" class="language-text">en</span>
+      </div>
+    </button>
+    <button class="back-button" id="backButton" onclick="goBackToMain()">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path d="M15 18l-6-6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+    <button class="lock-button" id="lockButton" onclick="toggleLock()">
+      <svg class="lock-icon" viewBox="0 0 24 24" width="24" height="24">
+        <path class="lock-body" d="M17 11H7a2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2v-7a2 2 0 00-2-2z" fill="none" stroke="currentColor" stroke-width="2" />
+        <path class="lock-top" d="M7 9V7a5 5 0 0110 0v0.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        <circle class="lock-hole" cx="12" cy="15" r="2" fill="currentColor" />
+      </svg>
+    </button>
+    <button class="help-button" id="helpButton" onclick="highlightClickableAreas()">
+      <svg width="24" height="24" viewBox="0 0 24 24">
+        <path d="M12 17V16.9929M9.13733 9C9.51961 7.84083 10.6567 7 12 7C12.3507 7 12.6873 7.05731 13.0001 7.16262M11.9999 14.8571C11.9999 11.6429 14.9999 12.3571 14.9999 9.85714C14.9999 9.55851 14.9518 9.27058 14.8625 9" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </button>
+    <div class="lock-overlay" id="lockOverlay"></div>
+  </div>
+  <script>
+    const LAMP_LOCATIONS = ['main28', 'main40', 'main41', 'main42'];
+    let currentMainBlock = 'main';
+    let currentTime = 'day';
+    let isTransitioning = false;
+    let locationHistory = ['main'];
+    let lightStates = {
+      'main28': 0,
+      'main30': 0,
+      'main31': 0,
+      'main34': 0,
+      'main35': 0,
+      'main37': 0,
+      'main39': 0,
+      'main40': 0,
+      'main41': 0,
+      'main42': 0,
+      'main44': 0,
+      'main45': 0
+    };
+    let currentLanguage = 'ru';
+    let currentPassword = '';
+    const HIDDEN_HELP_LOCATIONS = [
+      'main', 'main1', 'main2', 'main3', 'main5', 'main7', 'main11',
+      'main15', 'main16', 'main19', 'main22', 'main23', 'main25',
+      'main36', 'main43', 'main48', 'main50'
+    ];
+
+    function updateScale() {
+      const container = document.getElementById('scaleContainer');
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      const scaleX = windowWidth / 1920;
+      const scaleY = windowHeight / 1080;
+      const scale = Math.min(scaleX, scaleY);
+      container.style.transform = `scale(${scale})`;
+      document.documentElement.style.setProperty('--scale-factor', Math.max(1, scale));
+      const tooltip = document.getElementById('locationTooltip');
+      if (tooltip) tooltip.style.fontSize = `${24 * scale}px`;
+    }
+
+    function toggleLight(lightNumber) {
+      if (isTransitioning) return;
+      if (currentMainBlock === 'main41') {
+        const newState = lightStates['main41'] === 0 ? 1 : 0;
+        updateCorridorLightState(newState);
+        if (currentMainBlock === 'main42') updateBathroomLightState();
+        return;
+      }
+      if (!lightStates.hasOwnProperty(currentMainBlock)) return;
+      let currentState = lightStates[currentMainBlock];
+      let newState = currentState;
+      if (lightNumber === 1) {
+        newState = currentState === 0 ? 1 : currentState === 1 ? 0 : currentState === 2 ? 3 : 2;
+      } else if (lightNumber === 2) {
+        newState = currentState === 0 ? 2 : currentState === 1 ? 3 : currentState === 2 ? 0 : 1;
+      }
+      updateLightState(newState);
+    }
+
+    function updateLightState(newState) {
+      if (!lightStates.hasOwnProperty(currentMainBlock)) return;
+      if (lightStates[currentMainBlock] === newState || currentTime !== 'night') return;
+      const currentNightBlock = document.getElementById(`${currentMainBlock}-night-light${lightStates[currentMainBlock]}`);
+      if (currentNightBlock) {
+        currentNightBlock.classList.add('light-transition', 'time-hidden');
+        currentNightBlock.classList.remove('time-visible');
+      }
+      lightStates[currentMainBlock] = newState;
+      const newBlock = document.getElementById(`${currentMainBlock}-night-light${newState}`);
+      if (newBlock) {
+        newBlock.classList.add('light-transition');
+        newBlock.classList.remove('time-hidden');
+        newBlock.classList.add('time-visible');
+        setTimeout(() => newBlock.classList.remove('light-transition'), 10);
+      }
+    }
+
+    function updateCorridorLightState(newState) {
+      if (lightStates['main41'] === newState || currentTime !== 'night') return;
+      const currentCorridorBlock = document.getElementById(`main41-night-light${lightStates['main41']}`);
+      if (currentCorridorBlock) {
+        currentCorridorBlock.classList.add('light-transition', 'time-hidden');
+        currentCorridorBlock.classList.remove('time-visible');
+      }
+      lightStates['main41'] = newState;
+      const newCorridorBlock = document.getElementById(`main41-night-light${newState}`);
+      if (newCorridorBlock) {
+        newCorridorBlock.classList.add('light-transition');
+        newCorridorBlock.classList.remove('time-hidden');
+        newCorridorBlock.classList.add('time-visible');
+        setTimeout(() => newCorridorBlock.classList.remove('light-transition'), 10);
+      }
+    }
+
+    function updateBathroomLightState() {
+      if (currentMainBlock !== 'main42') return;
+      const currentState = lightStates['main41'];
+      document.querySelectorAll('#main42 .time-block').forEach(block => {
+        if (block.id.includes('night')) {
+          block.classList.add('time-hidden');
+          block.classList.remove('time-visible');
+        }
+      });
+      const newBathroomBlock = document.getElementById(`main42-night-light${currentState}`);
+      if (newBathroomBlock) {
+        newBathroomBlock.classList.remove('time-hidden');
+        newBathroomBlock.classList.add('time-visible');
+      }
+    }
+
+    function switchMainBlock(mainBlock, time) {
+      if (isTransitioning) return;
+      if (currentMainBlock === 'main21' && mainBlock === 'main22') {
+        showPasswordModal();
+        return;
+      }
+      isTransitioning = true;
+      const transitionScreen = document.getElementById('transitionScreen');
+      const languageButton = document.getElementById('languageButton');
+      const backButton = document.getElementById('backButton');
+      const helpButton = document.getElementById('helpButton');
+      transitionScreen.style.opacity = '1';
+      if (mainBlock === 'main') {
+        backButton.classList.remove('show');
+        helpButton.classList.remove('show');
+      } else languageButton.classList.add('hide');
+      setTimeout(() => {
+        document.getElementById(currentMainBlock).classList.add('hidden');
+        document.getElementById(mainBlock).classList.remove('hidden');
+        const timeBlocks = document.querySelectorAll(`#${mainBlock} .time-block`);
+        timeBlocks.forEach(block => {
+          block.classList.add('time-hidden');
+          block.classList.remove('time-visible');
+        });
+        if (time === 'night') {
+          if (mainBlock === 'main41') {
+            const corridorBlock = document.getElementById(`main41-night-light${lightStates['main41']}`);
+            if (corridorBlock) {
+              corridorBlock.classList.add('light-transition');
+              corridorBlock.classList.remove('time-hidden');
+              corridorBlock.classList.add('time-visible');
+              setTimeout(() => corridorBlock.classList.remove('light-transition'), 10);
+            }
+          } else if (mainBlock === 'main42') {
+            const bathroomBlock = document.getElementById(`main42-night-light${lightStates['main41']}`);
+            if (bathroomBlock) {
+              bathroomBlock.classList.add('light-transition');
+              bathroomBlock.classList.remove('time-hidden');
+              bathroomBlock.classList.add('time-visible');
+              setTimeout(() => bathroomBlock.classList.remove('light-transition'), 10);
+            }
+          } else if (lightStates.hasOwnProperty(mainBlock)) {
+            const nightBlock = document.getElementById(`${mainBlock}-night-light${lightStates[mainBlock]}`);
+            if (nightBlock) {
+              nightBlock.classList.add('light-transition');
+              nightBlock.classList.remove('time-hidden');
+              nightBlock.classList.add('time-visible');
+              setTimeout(() => nightBlock.classList.remove('light-transition'), 10);
+            }
+          } else {
+            const nightBlock = document.getElementById(`${mainBlock}-night`);
+            if (nightBlock) {
+              nightBlock.classList.remove('time-hidden');
+              nightBlock.classList.add('time-visible');
+            }
+          }
+        } else {
+          const timeBlock = document.getElementById(`${mainBlock}-${time}`);
+          if (timeBlock) {
+            timeBlock.classList.remove('time-hidden');
+            timeBlock.classList.add('time-visible');
+          }
+        }
+        if (locationHistory[locationHistory.length - 1] !== mainBlock) {
+          const existingIndex = locationHistory.indexOf(mainBlock);
+          if (existingIndex !== -1) locationHistory = locationHistory.slice(0, existingIndex + 1);
+          else locationHistory.push(mainBlock);
+        }
+        currentMainBlock = mainBlock;
+        checkTimeSwitcherVisibility();
+        updateHelpButtonVisibility();
+        if (mainBlock === 'main') languageButton.classList.remove('hide');
+        else {
+          backButton.classList.add('show');
+          helpButton.classList.add('show');
+        }
+        setTimeout(() => {
+          transitionScreen.style.opacity = '0';
+          isTransitioning = false;
+        }, 50);
+      }, 500);
+    }
+
+    function performBlockSwitch(mainBlock, time) {
+      if (isTransitioning) return;
+      isTransitioning = true;
+      const transitionScreen = document.getElementById('transitionScreen');
+      const languageButton = document.getElementById('languageButton');
+      const backButton = document.getElementById('backButton');
+      const helpButton = document.getElementById('helpButton');
+      transitionScreen.style.opacity = '1';
+      languageButton.classList.add('hide');
+      setTimeout(() => {
+        document.getElementById(currentMainBlock).classList.add('hidden');
+        document.getElementById(mainBlock).classList.remove('hidden');
+        const timeBlocks = document.querySelectorAll(`#${mainBlock} .time-block`);
+        timeBlocks.forEach(block => {
+          block.classList.add('time-hidden');
+          block.classList.remove('time-visible');
+        });
+        const timeBlock = document.getElementById(`${mainBlock}-${time}`);
+        if (timeBlock) {
+          timeBlock.classList.remove('time-hidden');
+          timeBlock.classList.add('time-visible');
+        }
+        if (locationHistory[locationHistory.length - 1] !== mainBlock) locationHistory.push(mainBlock);
+        currentMainBlock = mainBlock;
+        checkTimeSwitcherVisibility();
+        updateHelpButtonVisibility();
+        backButton.classList.add('show');
+        helpButton.classList.add('show');
+        setTimeout(() => {
+          transitionScreen.style.opacity = '0';
+          isTransitioning = false;
+        }, 50);
+      }, 500);
+    }
+
+    function goBackToMain() {
+      if (locationHistory.length <= 1 || isTransitioning) return;
+      isTransitioning = true;
+      const transitionScreen = document.getElementById('transitionScreen');
+      const languageButton = document.getElementById('languageButton');
+      const backButton = document.getElementById('backButton');
+      const helpButton = document.getElementById('helpButton');
+      transitionScreen.style.opacity = '1';
+      backButton.classList.remove('show');
+      helpButton.classList.remove('show');
+      setTimeout(() => {
+        let lastRootTransitionIndex = -1;
+        for (let i = locationHistory.length - 2; i >= 0; i--) {
+          if (locationHistory[i] !== locationHistory[locationHistory.length - 1]) {
+            lastRootTransitionIndex = i;
+            break;
+          }
+        }
+        let previousLocation;
+        if (lastRootTransitionIndex === -1) {
+          previousLocation = 'main';
+          locationHistory = ['main'];
+        } else {
+          previousLocation = locationHistory[lastRootTransitionIndex];
+          locationHistory = locationHistory.slice(0, lastRootTransitionIndex + 1);
+        }
+        document.getElementById(currentMainBlock).classList.add('hidden');
+        document.getElementById(previousLocation).classList.remove('hidden');
+        const timeBlocks = document.querySelectorAll(`#${previousLocation} .time-block`);
+        timeBlocks.forEach(block => {
+          block.classList.add('time-hidden');
+          block.classList.remove('time-visible');
+        });
+        if (currentTime === 'night' && lightStates.hasOwnProperty(previousLocation)) {
+          const nightBlockId = `${previousLocation}-night-light${lightStates[previousLocation]}`;
+          const newTimeBlock = document.getElementById(nightBlockId);
+          if (newTimeBlock) {
+            newTimeBlock.classList.remove('time-hidden');
+            newTimeBlock.classList.add('time-visible');
+          }
+        } else {
+          const newTimeBlock = document.getElementById(`${previousLocation}-${currentTime}`);
+          if (newTimeBlock) {
+            newTimeBlock.classList.remove('time-hidden');
+            newTimeBlock.classList.add('time-visible');
+          }
+        }
+        if (previousLocation === 'main') {
+          languageButton.classList.remove('hide');
+          helpButton.style.display = 'none';
+        } else {
+          backButton.classList.add('show');
+          helpButton.style.display = HIDDEN_HELP_LOCATIONS.includes(previousLocation) ? 'none' : 'flex';
+        }
+        currentMainBlock = previousLocation;
+        checkTimeSwitcherVisibility();
+        if (!HIDDEN_HELP_LOCATIONS.includes(previousLocation)) {
+          setTimeout(() => {
+            helpButton.style.display = 'flex';
+            helpButton.classList.add('show');
+          }, 50);
+        }
+        setTimeout(() => {
+          transitionScreen.style.opacity = '0';
+          isTransitioning = false;
+        }, 50);
+      }, 500);
+    }
+
+    function switchTimeOfDay(time) {
+      if (time === currentTime || isTransitioning) return;
+      isTransitioning = true;
+      const options = document.querySelectorAll('.switch-option');
+      options.forEach(opt => opt.classList.remove('active'));
+      document.querySelector(`.switch-option[data-value="${time}"]`).classList.add('active');
+      const currentBlocks = document.querySelectorAll(
+        `#${currentMainBlock}-${currentTime}, 
+         #${currentMainBlock}-${currentTime}-light0, 
+         #${currentMainBlock}-${currentTime}-light1, 
+         #${currentMainBlock}-${currentTime}-light2, 
+         #${currentMainBlock}-${currentTime}-light3`
+      );
+      currentBlocks.forEach(block => {
+        if (block) {
+          block.classList.add('time-transition-out');
+          block.classList.remove('time-visible');
+          block.classList.add('time-hidden');
+        }
+      });
+      setTimeout(() => {
+        if (time === 'night') {
+          if (currentMainBlock === 'main41') {
+            const corridorBlock = document.getElementById(`main41-night-light${lightStates['main41']}`);
+            if (corridorBlock) {
+              corridorBlock.classList.add('time-transition-in');
+              corridorBlock.classList.remove('time-hidden');
+              corridorBlock.classList.add('time-visible');
+            }
+          } else if (currentMainBlock === 'main42') {
+            const bathroomState = lightStates['main41'];
+            const bathroomBlock = document.getElementById(`main42-night-light${bathroomState}`);
+            if (bathroomBlock) {
+              bathroomBlock.classList.add('time-transition-in');
+              bathroomBlock.classList.remove('time-hidden');
+              bathroomBlock.classList.add('time-visible');
+            }
+          } else if (lightStates.hasOwnProperty(currentMainBlock)) {
+            const nightBlock = document.getElementById(`${currentMainBlock}-night-light${lightStates[currentMainBlock]}`);
+            if (nightBlock) {
+              nightBlock.classList.add('time-transition-in');
+              nightBlock.classList.remove('time-hidden');
+              nightBlock.classList.add('time-visible');
+            }
+          } else {
+            const nightBlock = document.getElementById(`${currentMainBlock}-night`);
+            if (nightBlock) {
+              nightBlock.classList.add('time-transition-in');
+              nightBlock.classList.remove('time-hidden');
+              nightBlock.classList.add('time-visible');
+            }
+          }
+        } else {
+          const newBlock = document.getElementById(`${currentMainBlock}-${time}`);
+          if (newBlock) {
+            newBlock.classList.add('time-transition-in');
+            newBlock.classList.remove('time-hidden');
+            newBlock.classList.add('time-visible');
+          }
+        }
+        currentTime = time;
+        updateHelpButtonVisibility();
+        setTimeout(() => {
+          currentBlocks.forEach(block => {
+            if (block) block.classList.remove('time-transition-out');
+          });
+          const newBlocks = document.querySelectorAll(
+            `#${currentMainBlock}-${time}, 
+                 #${currentMainBlock}-${time}-light0, 
+                 #${currentMainBlock}-${time}-light1, 
+                 #${currentMainBlock}-${time}-light2, 
+                 #${currentMainBlock}-${time}-light3`
+          );
+          newBlocks.forEach(block => {
+            if (block) block.classList.remove('time-transition-in');
+          });
+          isTransitioning = false;
+          if (time === 'night' && currentMainBlock === 'main42') updateBathroomLightState();
+        }, 1100);
+      }, 50);
+    }
+
+    function checkTimeSwitcherVisibility() {
+      const switchTopContainer = document.querySelector('.switch-top-container');
+      const noTimeSwitchLocations = ['main5', 'main9', 'main15', 'main18', 'main19', 'main27', 'main22', 'main36'];
+      switchTopContainer.style.display = noTimeSwitchLocations.includes(currentMainBlock) ? 'none' : 'flex';
+    }
+
+    function toggleLock() {
+      const lockButton = document.getElementById('lockButton');
+      const lockOverlay = document.getElementById('lockOverlay');
+      const isLocked = lockButton.classList.contains('locked');
+      lockOverlay.classList.toggle('active', !isLocked);
+      lockButton.classList.toggle('locked');
+    }
+
+    function showPasswordModal() {
+      const modal = document.getElementById('passwordModal');
+      const display = document.getElementById('passwordDisplay');
+      currentPassword = '';
+      display.textContent = 'Give Me Your Password';
+      modal.classList.remove('hidden');
+      document.querySelectorAll('.password-key').forEach(key => {
+        if (key.id !== 'passwordBackspace' && key.id !== 'passwordSubmit') {
+          key.removeEventListener('click', handleDigitClick);
+        }
+      });
+      document.getElementById('passwordBackspace').removeEventListener('click', handleBackspaceClick);
+      document.getElementById('passwordSubmit').removeEventListener('click', handleSubmitClick);
+      document.querySelectorAll('.password-key').forEach(key => {
+        if (key.id !== 'passwordBackspace' && key.id !== 'passwordSubmit') {
+          key.addEventListener('click', handleDigitClick);
+        }
+      });
+      document.getElementById('passwordBackspace').addEventListener('click', handleBackspaceClick);
+      document.getElementById('passwordSubmit').addEventListener('click', handleSubmitClick);
+    }
+
+    function handleDigitClick() {
+      addPasswordDigit(this.dataset.key);
+    }
+
+    function handleBackspaceClick() {
+      removePasswordDigit();
+    }
+
+    function handleSubmitClick() {
+      submitPassword();
+    }
+
+    function addPasswordDigit(digit) {
+      if (currentPassword.length < 6) {
+        currentPassword += digit;
+        updatePasswordDisplay();
+      }
+    }
+
+    function removePasswordDigit() {
+      if (currentPassword.length > 0) {
+        currentPassword = currentPassword.slice(0, -1);
+        updatePasswordDisplay();
+      }
+    }
+
+    function updatePasswordDisplay() {
+      const display = document.getElementById('passwordDisplay');
+      let displayText = '';
+      for (let i = 0; i < 6; i++) {
+        if (i < currentPassword.length) displayText += currentPassword[i] + ' ';
+        else displayText += '_ ';
+      }
+      display.textContent = displayText.trim();
+    }
+
+    function submitPassword() {
+      const modal = document.getElementById('passwordModal');
+      modal.classList.add('hidden');
+      document.querySelectorAll('.password-key').forEach(key => {
+        if (key.id !== 'passwordBackspace' && key.id !== 'passwordSubmit') {
+          key.removeEventListener('click', handleDigitClick);
+        }
+      });
+      document.getElementById('passwordBackspace').removeEventListener('click', handleBackspaceClick);
+      document.getElementById('passwordSubmit').removeEventListener('click', handleSubmitClick);
+      const basementBlock = document.getElementById('main22');
+      const bgLayers = basementBlock.querySelectorAll('.bg-layer');
+      let bgImage;
+      if (currentPassword === CORRECT_PASSWORD) bgImage = "url('img/minato/minato_basement/bg1.webp')";
+      else if (currentPassword === SECOND_PASSWORD) bgImage = "url('img/minato/minato_basement/bg2.webp')";
+      else bgImage = "url('img/minato/minato_basement/bg.webp')";
+      bgLayers.forEach(layer => layer.style.backgroundImage = bgImage);
+      performBlockSwitch('main22', currentTime);
+    }
+
+    const locationTranslations = {
+      'point-bus': {
+        ru: 'Автобусная остановка',
+        en: 'Bus Stop'
+      },
+      'point-canal': {
+        ru: 'Канал',
+        en: 'Canal'
+      },
+      'point-lake': {
+        ru: 'Озеро',
+        en: 'Lake'
+      },
+      'point-arcade': {
+        ru: 'Игровой Центр',
+        en: 'Game Center'
+      },
+      'point-coffeebar': {
+        ru: 'Кофейня',
+        en: 'Coffee Bar'
+      },
+      'point-kimochi': {
+        ru: 'Дом Кимочи',
+        en: 'Kimochi\'s House'
+      },
+      'point-konbini': {
+        ru: 'Магазин Комбини',
+        en: 'Konbini'
+      },
+      'point-warehouse': {
+        ru: 'Склад',
+        en: 'Warehouse'
+      },
+      'point-club': {
+        ru: 'Клуб',
+        en: 'Hostess Club'
+      },
+      'point-hotel': {
+        ru: 'Любовный Отель',
+        en: 'Love Hotel'
+      },
+      'point-minato': {
+        ru: 'Дом Минато',
+        en: 'Minato\'s House'
+      },
+      'point-park_main': {
+        ru: 'Парк',
+        en: 'Park'
+      },
+      'point-park': {
+        ru: 'Парк Развлечений',
+        en: 'Amusement Park'
+      },
+      'point-restaurant': {
+        ru: 'Ресторан',
+        en: 'Restaurant'
+      },
+      'point-onsen': {
+        ru: 'Горячие источники',
+        en: 'Onsen'
+      },
+      'point-asami': {
+        ru: 'Дом Асами',
+        en: 'Asami\'s House'
+      },
+      'point-home': {
+        ru: 'Дом',
+        en: 'My House'
+      },
+      'point-dojo': {
+        ru: 'Додзё',
+        en: 'Dojo'
+      },
+      'point-kenji': {
+        ru: 'Дом Кенджи',
+        en: 'Kenji\'s House'
+      },
+      'point-natsume': {
+        ru: 'Дом Нацуме',
+        en: 'Natsume\'s House'
+      },
+      'point-nobu': {
+        ru: 'Дом Нобу',
+        en: 'Nobu\'s House'
+      },
+      'point-takeo': {
+        ru: 'Дом Такео',
+        en: 'Takeo\'s House'
+      }
+    };
+
+    function getSystemLanguage() {
+      const systemLang = navigator.language || navigator.userLanguage;
+      return systemLang.startsWith('ru') ? 'ru' : 'en';
+    }
+
+    function toggleLanguage() {
+      const button = document.getElementById('languageButton');
+      if (currentLanguage === 'ru') {
+        currentLanguage = 'en';
+        button.classList.remove('ru');
+        button.classList.add('en');
+      } else {
+        currentLanguage = 'ru';
+        button.classList.remove('en');
+        button.classList.add('ru');
+      }
+      updateTooltipText();
+      updateLocationTexts();
+    }
+
+    function updateTooltipText() {
+      const hoveredPoint = document.querySelector('[class^="point-"]:hover');
+      if (hoveredPoint && locationTooltip.style.opacity === '1') {
+        const pointClass = Array.from(hoveredPoint.classList).find(cls => cls.startsWith('point-'));
+        if (pointClass && locationTranslations[pointClass]) {
+          locationTooltip.textContent = locationTranslations[pointClass][currentLanguage];
+        }
+      }
+    }
+
+    function updateLocationTexts() {
+      document.querySelectorAll('[class^="point-"]').forEach(point => {
+        const pointClass = Array.from(point.classList).find(cls => cls.startsWith('point-'));
+        if (pointClass && locationTranslations[pointClass]) {
+          if (point === document.querySelector(':hover')) {
+            locationTooltip.textContent = locationTranslations[pointClass][currentLanguage];
+          }
+        }
+      });
+    }
+
+    function initMapPointsAnimation() {
+      document.querySelectorAll('.point-bus, .point-canal, .point-lake, .point-arcade, .point-coffeebar, .point-kimochi, .point-konbini, .point-warehouse, .point-club, .point-hotel, .point-minato, .point-park_main, .point-park, .point-restaurant, .point-onsen, .point-asami, .point-home, .point-dojo, .point-kenji, .point-natsume, .point-nobu, .point-takeo').forEach(point => {
+        let animationId;
+        let currentY = 0;
+        const jumpHeight = 15;
+        const jumpDuration = 900;
+        const returnDuration = 500;
+        let isHovered = false;
+        let startTime;
+        let phaseShift = 0;
+        let hoverStartTime = 0;
+        const minHoverTime = 300;
+        let returnTimeout;
+
+        function jumpAnimation(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const elapsed = timestamp - startTime;
+          const progress = ((elapsed % jumpDuration) / jumpDuration + phaseShift) % 1;
+          currentY = Math.sin(progress * Math.PI) * jumpHeight;
+          point.style.transform = `translate(-50%, -50%) translateY(${-currentY}px)`;
+          if (isHovered) animationId = requestAnimationFrame(jumpAnimation);
+        }
+
+        function returnAnimation() {
+          const startPosition = currentY;
+          const startTime = performance.now();
+
+          function animateReturn(timestamp) {
+            const elapsed = timestamp - startTime;
+            const progress = Math.min(elapsed / returnDuration, 1);
+            currentY = startPosition * (1 - easeOutQuint(progress));
+            point.style.transform = `translate(-50%, -50%) translateY(${-currentY}px)`;
+            if (progress < 1) animationId = requestAnimationFrame(animateReturn);
+            else phaseShift = 0;
+          }
+          cancelAnimationFrame(animationId);
+          animationId = requestAnimationFrame(animateReturn);
+        }
+
+        function easeOutQuint(t) {
+          return 1 - Math.pow(1 - t, 5);
+        }
+        point.addEventListener('mouseenter', () => {
+          clearTimeout(returnTimeout);
+          const now = performance.now();
+          if (now - hoverStartTime < minHoverTime && hoverStartTime !== 0) return;
+          isHovered = true;
+          startTime = performance.now() - (jumpDuration * phaseShift);
+          cancelAnimationFrame(animationId);
+          animationId = requestAnimationFrame(jumpAnimation);
+        });
+        point.addEventListener('mouseleave', () => {
+          hoverStartTime = performance.now();
+          returnTimeout = setTimeout(() => {
+            isHovered = false;
+            returnAnimation();
+          }, minHoverTime);
+        });
+        point.style.transform = 'translate(-50%, -50%)';
+        point.style.willChange = 'transform';
+      });
+    }
+
+    function highlightClickableAreas() {
+      if (currentMainBlock === 'main') return;
+      const hoverLayers = document.querySelectorAll(`#${currentMainBlock} [class^="hover-layer-"]`);
+      hoverLayers.forEach(layer => {
+        const isLight = Array.from(layer.classList).some(cls => cls.includes('_light'));
+        const animationClass = isLight ? 'highlight-clickable-light' : 'highlight-clickable-normal';
+        layer.style.opacity = '1';
+        layer.classList.add(animationClass);
+        setTimeout(() => {
+          layer.classList.remove(animationClass);
+          layer.style.opacity = '';
+        }, 1500);
+      });
+    }
+	 const CORRECT_PASSWORD = '886633';
+     const SECOND_PASSWORD = '014880';
+    function updateHelpButtonVisibility() {
+      const helpButton = document.getElementById('helpButton');
+      const shouldHide = HIDDEN_HELP_LOCATIONS.includes(currentMainBlock) || currentMainBlock === 'main';
+      if (shouldHide) helpButton.style.display = 'none';
+      else setTimeout(() => helpButton.style.display = 'flex', 10);
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const languageButton = document.getElementById('languageButton');
+      const backButton = document.getElementById('backButton');
+      languageButton.classList.remove('hide');
+      backButton.classList.remove('show');
+      const blocks = document.querySelectorAll('.main-block');
+      blocks.forEach(block => {
+        if (block.id !== 'main') block.classList.add('hidden');
+      });
+      const logoScreen = document.getElementById('logoScreen');
+      document.body.classList.add('logo-screen-visible');
+      setTimeout(() => {
+        logoScreen.style.opacity = '0';
+        setTimeout(() => document.body.classList.remove('logo-screen-visible'), 500);
+      }, 2500);
+      currentLanguage = getSystemLanguage();
+      languageButton.classList.remove('ru', 'en');
+      languageButton.classList.add(currentLanguage);
+      updateLocationTexts();
+      checkTimeSwitcherVisibility();
+      updateLightState(0);
+      updateScale();
+      initMapPointsAnimation();
+      window.addEventListener('resize', updateScale);
+    });
+
+    document.getElementById('passwordModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        document.querySelectorAll('.password-key').forEach(key => {
+          if (key.id !== 'passwordBackspace' && key.id !== 'passwordSubmit') {
+            key.removeEventListener('click', handleDigitClick);
+          }
+        });
+        document.getElementById('passwordBackspace').removeEventListener('click', handleBackspaceClick);
+        document.getElementById('passwordSubmit').removeEventListener('click', handleSubmitClick);
+        this.classList.add('hidden');
+      }
+    });
+
+    const locationTooltip = document.getElementById('locationTooltip');
+    document.querySelectorAll('[class^="point-"]').forEach(point => {
+      const pointClass = Array.from(point.classList).find(cls => cls.startsWith('point-'));
+      point.addEventListener('mouseenter', () => {
+        if (pointClass && locationTranslations[pointClass]) {
+          locationTooltip.textContent = locationTranslations[pointClass][currentLanguage];
+          locationTooltip.style.opacity = '1';
+        }
+      });
+      point.addEventListener('mouseleave', () => locationTooltip.style.opacity = '0');
+    });
+  </script>
+</body>
+
+</html>
